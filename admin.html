@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Mahmoud Reda</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent: #3b82f6;
+            --danger: #ef4444;
+            --success: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        /* Login Screen */
+        #login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .login-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 1rem;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .login-card h2 {
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .input-group {
+            margin-bottom: 1rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: white;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: var(--accent);
+        }
+
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border: none;
+            background: var(--accent);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        /* Dashboard */
+        #dashboard {
+            display: none;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #334155;
+        }
+
+        .logout-btn {
+            width: auto;
+            background: var(--danger);
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        .messages-grid {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        }
+
+        .message-card {
+            background: var(--bg-card);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            position: relative;
+            border: 1px solid #334155;
+        }
+
+        .msg-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .msg-sender {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+
+        .msg-email {
+            color: var(--accent);
+            font-size: 0.9rem;
+            text-decoration: none;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .msg-body {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #cbd5e1;
+        }
+
+        .empty-state {
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 4rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Login Screen -->
+    <div id="login-screen">
+        <div class="login-card">
+            <div style="font-size: 3rem; margin-bottom: 1rem; color: var(--accent);">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <h2>Admin Access</h2>
+            <div class="input-group">
+                <input type="password" id="admin-password" placeholder="Enter Access Code">
+            </div>
+            <button onclick="checkAuth()">Login</button>
+            <p id="error-msg" style="color: var(--danger); margin-top: 1rem; display: none;">Access Denied</p>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard">
+        <div class="header">
+            <div>
+                <h1>Messages</h1>
+                <p style="color: var(--text-secondary);">View contact form submissions</p>
+            </div>
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+
+        <div class="messages-grid" id="messages-container">
+            <!-- Messages will be loaded here -->
+            <div class="empty-state">
+                <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                <p>Loading messages...</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Firebase code will go here
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // --- REPLACE WITH YOUR FIREBASE CONFIG ---
+        const firebaseConfig = {
+            apiKey: "AIzaSy...",
+            authDomain: "your-project.firebaseapp.com",
+            projectId: "your-project-id",
+            storageBucket: "your-project.appspot.com",
+            messagingSenderId: "...",
+            appId: "..."
+        };
+        // -----------------------------------------
+
+        // Initialize Firebase (Uncomment when config is real)
+        // const app = initializeApp(firebaseConfig);
+        // const db = getFirestore(app);
+
+        window.checkAuth = function () {
+            const pass = document.getElementById('admin-password').value;
+            // Simple hardcoded password for demo
+            if (pass === 'admin123') {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+                loadMessages();
+            } else {
+                document.getElementById('error-msg').style.display = 'block';
+            }
+        }
+
+        window.logout = function () {
+            location.reload();
+        }
+
+        window.loadMessages = async function () {
+            const container = document.getElementById('messages-container');
+
+            // Simulation for now until Firebase is connected
+            container.innerHTML = `
+                <div class="message-card">
+                    <div class="msg-header">
+                        <span><i class="far fa-calendar"></i> Just now</span>
+                        <span style="color: var(--success);">New</span>
+                    </div>
+                    <strong class="msg-sender">John Doe</strong>
+                    <a href="mailto:john@example.com" class="msg-email">john@example.com</a>
+                    <div class="msg-body">
+                        This is a simulated message. Once Firebase is connected, real messages will appear here.
+                    </div>
+                </div>
+            `;
+
+            /* Real Firebase Code:
+            const q = query(collection(db, "messages"), orderBy("timestamp", "desc"));
+            const querySnapshot = await getDocs(q);
+            
+            if(querySnapshot.empty) {
+                container.innerHTML = '<div class="empty-state">No messages yet.</div>';
+                return;
+            }
+
+            container.innerHTML = '';
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const date = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleDateString() : 'Unknown';
+                
+                const html = `
+                    <div class="message-card">
+                        <div class="msg-header">
+                            <span><i class="far fa-calendar"></i> ${date}</span>
+                        </div>
+                        <strong class="msg-sender">${data.name}</strong>
+                        <a href="mailto:${data.email}" class="msg-email">${data.email}</a>
+                        <div class="msg-body">
+                            ${data.message}
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += html;
+            });
+            */
+        }
+    </script>
+</body>
+
+</html>

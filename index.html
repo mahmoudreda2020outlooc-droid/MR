@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Mahmoud - Web Developer Portfolio. Building modern, fast, and user-friendly websites with cutting-edge technologies.">
+    <meta name="keywords" content="web developer, portfolio, HTML, CSS, JavaScript, React, Firebase, Git">
+    <meta name="author" content="Mahmoud">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Mahmoud - Web Developer Portfolio">
+    <meta property="og:description" content="Building modern, fast, and user-friendly websites">
+    <meta property="og:type" content="website">
+
+    <title>Mahmoud - Web Developer Portfolio</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.png" type="image/png">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="#" class="logo" onclick="openLogoModal(event)">
+                    <img src="logo.png" alt="Mahmoud Logo" class="logo-image">
+                </a>
+
+                <ul class="nav-menu">
+                    <li><a href="#home" class="nav-link" data-i18n="nav_home">Home</a></li>
+                    <li><a href="#about" class="nav-link" data-i18n="nav_about">About</a></li>
+                    <li><a href="#skills" class="nav-link" data-i18n="nav_skills">Skills</a></li>
+                    <li><a href="#projects" class="nav-link" data-i18n="nav_projects">Projects</a></li>
+                    <li><a href="#contact" class="nav-link" data-i18n="nav_contact">Contact</a></li>
+                    <li class="nav-item-lang">
+                        <button class="lang-btn" onclick="toggleLangMenu()" aria-label="Change Language">
+                            <i class="fas fa-globe"></i>
+                        </button>
+                        <div class="lang-dropdown" id="langDropdown">
+                            <!-- Languages will be populated by JS -->
+                        </div>
+                    </li>
+                </ul>
+
+                <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <p class="hero-greeting" data-i18n="hero_greeting">Hi, I'm</p>
+                    <h1 class="hero-title">
+                        <span class="gradient-text">Mahmoud</span>
+                    </h1>
+                    <h2 class="hero-subtitle" data-i18n="hero_subtitle">Web Developer & Creative Problem Solver</h2>
+                    <p class="hero-description" data-i18n="hero_description">
+                        I craft modern, fast, and user-friendly websites that bring ideas to life.
+                        Passionate about clean code and exceptional user experiences.
+                    </p>
+
+                    <div class="hero-cta">
+                        <a href="#projects" class="btn btn-primary">
+                            <span data-i18n="btn_view_projects">View Projects</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="#contact" class="btn btn-secondary">
+                            <span data-i18n="btn_contact_me">Contact Me</span>
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-visual">
+                    <div class="floating-card card-1">
+                        <i class="fab fa-html5"></i>
+                    </div>
+                    <div class="floating-card card-2">
+                        <i class="fab fa-css3-alt"></i>
+                    </div>
+                    <div class="floating-card card-3">
+                        <i class="fab fa-js"></i>
+                    </div>
+                    <div class="floating-card card-4">
+                        <i class="fab fa-react"></i>
+                    </div>
+
+                    <!-- Center MR Logo -->
+                    <div class="center-logo">
+                        <div class="logo-glow"></div>
+                        <img src="mr-card.png" alt="MR Logo" class="center-mr-logo">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <span data-i18n="scroll_down">Scroll Down</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="about_title">About Me</h2>
+                <div class="title-underline"></div>
+            </div>
+
+            <div class="about-content">
+                <div class="about-image">
+                    <div class="image-wrapper">
+                        <img src="profile-pic.png" alt="Mahmoud - Web Developer" class="developer-illustration">
+                    </div>
+                </div>
+
+                <div class="about-text">
+                    <h3 data-i18n="about_subtitle">Building Digital Experiences</h3>
+                    <p data-i18n="about_p1">
+                        I'm a passionate web developer dedicated to creating modern, fast, and user-friendly websites. I
+                        hold a five-year Industrial Diploma and am currently a student at the Faculty of Industrial
+                        Technology and Energy – Borg El Arab University, majoring in Information Technology (IT).
+                    </p>
+                    <p data-i18n="about_p2">
+                        With a keen eye for design and a foundation in systems thinking, I transform ideas into engaging
+                        digital experiences. I apply my technical education to build modern, efficient web solutions
+                        that not only look great but perform exceptionally.
+                    </p>
+
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <h4 data-i18n="stat_p_title">Practical</h4>
+                            <p data-i18n="stat_p_desc">Project Experience</p>
+                        </div>
+                        <div class="stat-item">
+                            <h4 data-i18n="stat_t_title">Modern</h4>
+                            <p data-i18n="stat_t_desc">Tech Solutions</p>
+                        </div>
+                        <div class="stat-item">
+                            <h4 data-i18n="stat_s_title">Premium</h4>
+                            <p data-i18n="stat_s_desc">Quality Focused</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="skills_title">Skills & Technologies</h2>
+                <div class="title-underline"></div>
+                <p class="section-description" data-i18n="skills_description">Tools and technologies I work with</p>
+            </div>
+
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fab fa-html5"></i>
+                    </div>
+                    <h3>HTML5</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="95"></div>
+                    </div>
+                    <span class="skill-percentage">95%</span>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fab fa-css3-alt"></i>
+                    </div>
+                    <h3>CSS3</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="90"></div>
+                    </div>
+                    <span class="skill-percentage">90%</span>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fab fa-js"></i>
+                    </div>
+                    <h3>JavaScript</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="85"></div>
+                    </div>
+                    <span class="skill-percentage">85%</span>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fab fa-react"></i>
+                    </div>
+                    <h3>React</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="80"></div>
+                    </div>
+                    <span class="skill-percentage">80%</span>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fab fa-git-alt"></i>
+                    </div>
+                    <h3>Git</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="88"></div>
+                    </div>
+                    <span class="skill-percentage">88%</span>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <h3>GitHub</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="90"></div>
+                    </div>
+                    <span class="skill-percentage">90%</span>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h3>Firebase</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="75"></div>
+                    </div>
+                    <span class="skill-percentage">75%</span>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Appwrite</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="80"></div>
+                    </div>
+                    <span class="skill-percentage">80%</span>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Responsive Design</h3>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="92"></div>
+                    </div>
+                    <span class="skill-percentage">92%</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="projects_title">Featured Projects</h2>
+                <div class="title-underline"></div>
+                <p class="section-description" data-i18n="projects_description">Some of my recent work</p>
+            </div>
+
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://via.placeholder.com/600x400/3b82f6/ffffff?text=E-Commerce+Platform"
+                            alt="E-Commerce Platform">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="project-link" aria-label="View live demo">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                                <a href="#" class="project-link" aria-label="View GitHub repository">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3 data-i18n="project1_title">E-Commerce Platform</h3>
+                        <p data-i18n="project1_description">A full-featured online shopping platform with cart
+                            functionality, user authentication, and
+                            payment integration.</p>
+                        <div class="project-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">Firebase</span>
+                            <span class="tag">CSS</span>
+                        </div>
+                        <div class="project-buttons">
+                            <a href="#" class="btn btn-small btn-primary">
+                                <span data-i18n="btn_live_demo">Live Demo</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <a href="#" class="btn btn-small btn-outline">
+                                <i class="fab fa-github"></i>
+                                <span data-i18n="btn_github">GitHub</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://via.placeholder.com/600x400/10b981/ffffff?text=Task+Manager+App"
+                            alt="Task Manager App">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="project-link" aria-label="View live demo">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                                <a href="#" class="project-link" aria-label="View GitHub repository">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3 data-i18n="project2_title">Task Manager App</h3>
+                        <p data-i18n="project2_description">An intuitive task management application with drag-and-drop
+                            functionality, categories, and
+                            priority levels.</p>
+                        <div class="project-tags">
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">HTML</span>
+                            <span class="tag">CSS</span>
+                        </div>
+                        <div class="project-buttons">
+                            <a href="#" class="btn btn-small btn-primary">
+                                <span data-i18n="btn_live_demo">Live Demo</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <a href="#" class="btn btn-small btn-outline">
+                                <i class="fab fa-github"></i>
+                                <span data-i18n="btn_github">GitHub</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://via.placeholder.com/600x400/8b5cf6/ffffff?text=Weather+Dashboard"
+                            alt="Weather Dashboard">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="project-link" aria-label="View live demo">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                                <a href="#" class="project-link" aria-label="View GitHub repository">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3 data-i18n="project3_title">Weather Dashboard</h3>
+                        <p data-i18n="project3_description">A beautiful weather application with real-time data,
+                            forecasts, and location-based weather
+                            information.</p>
+                        <div class="project-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">API</span>
+                            <span class="tag">CSS</span>
+                        </div>
+                        <div class="project-buttons">
+                            <a href="#" class="btn btn-small btn-primary">
+                                <span data-i18n="btn_live_demo">Live Demo</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <a href="#" class="btn btn-small btn-outline">
+                                <i class="fab fa-github"></i>
+                                <span data-i18n="btn_github">GitHub</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="contact_title">Get In Touch</h2>
+                <div class="title-underline"></div>
+                <p class="section-description" data-i18n="contact_description">Let's work together on your next project
+                </p>
+            </div>
+
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3 data-i18n="connect_title">Let's Connect</h3>
+                    <p data-i18n="connect_description">
+                        I'm always interested in hearing about new projects and opportunities.
+                        Whether you have a question or just want to say hi, feel free to reach out!
+                    </p>
+
+                    <div class="contact-methods">
+                        <a href="mailto:mahmoudreda2020outlooc@gmail.com" class="contact-method">
+                            <div class="method-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="method-info">
+                                <h4>Email</h4>
+                                <p style="font-size: 0.9rem; word-break: break-all;">mahmoudreda2020outlooc@gmail.com
+                                </p>
+                            </div>
+                        </a>
+
+                        <a href="https://github.com/mahmoudreda2020outlooc-droid" target="_blank"
+                            rel="noopener noreferrer" class="contact-method">
+                            <div class="method-icon">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <div class="method-info">
+                                <h4>GitHub</h4>
+                                <p>mahmoudreda2020outlooc-droid</p>
+                            </div>
+                        </a>
+
+                        <a href="https://wa.me/201004897420" target="_blank" rel="noopener noreferrer"
+                            class="contact-method">
+                            <div class="method-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div class="method-info">
+                                <h4>WhatsApp</h4>
+                                <p>+20 100 489 7420</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="https://github.com/mahmoudreda2020outlooc-droid" target="_blank"
+                            rel="noopener noreferrer" class="social-link" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/mahmoud" target="_blank" rel="noopener noreferrer"
+                            class="social-link" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+
+                        <a href="https://wa.me/201004897420" target="_blank" rel="noopener noreferrer"
+                            class="social-link" aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <form class="contact-form" id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID_HERE"
+                    method="POST">
+                    <div class="form-group">
+                        <label for="name" data-i18n="label_name">Your Name</label>
+                        <input type="text" id="name" name="name" placeholder="John Doe"
+                            data-i18n-placeholder="placeholder_name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" data-i18n="label_email">Your Email</label>
+                        <input type="email" id="email" name="email" placeholder="john@example.com"
+                            data-i18n-placeholder="placeholder_email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message" data-i18n="label_message">Your Message</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Tell me about your project..."
+                            data-i18n-placeholder="placeholder_message" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <span data-i18n="btn_send_message">Send Message</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Logo Modal -->
+    <div id="logoModal" class="modal">
+        <div class="modal-overlay" onclick="closeLogoModal()"></div>
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeLogoModal()" aria-label="Close modal">
+                <i class="fas fa-times"></i>
+            </button>
+            <img src="logo.png" alt="Mahmoud Logo" class="modal-logo">
+            <p class="modal-caption">Mahmoud - Web Developer</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2026 Mahmoud. All rights reserved.</p>
+                <p class="footer-tagline">Built with <i class="fas fa-heart"></i> and <i class="fas fa-coffee"></i></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>
