@@ -11,6 +11,9 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- Appwrite SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@14.0.0"></script>
+
     <style>
         :root {
             --bg-dark: #0f172a;
@@ -20,6 +23,7 @@
             --accent: #3b82f6;
             --danger: #ef4444;
             --success: #10b981;
+            --warning: #f59e0b;
         }
 
         * {
@@ -122,10 +126,44 @@
             font-size: 0.9rem;
         }
 
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #334155;
+            padding-bottom: 10px;
+        }
+
+        .tab-btn {
+            background: none !important;
+            border: none;
+            color: var(--text-secondary);
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: auto !important;
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+            border-bottom: 2px solid var(--accent);
+            margin-bottom: -12px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
         .messages-grid {
             display: grid;
             gap: 1rem;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
         }
 
         .message-card {
@@ -160,6 +198,14 @@
             display: block;
         }
 
+        .project-details {
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+        }
+
         .msg-body {
             background: rgba(0, 0, 0, 0.2);
             padding: 1rem;
@@ -167,6 +213,63 @@
             font-size: 0.95rem;
             line-height: 1.5;
             color: #cbd5e1;
+        }
+
+        /* Status Controls */
+        .status-controls {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #334155;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .status-select {
+            background: #0f172a;
+            color: white;
+            border: 1px solid #334155;
+            padding: 0.4rem;
+            border-radius: 0.3rem;
+            font-size: 0.85rem;
+            flex-grow: 1;
+            width: auto;
+        }
+
+        .update-btn {
+            width: auto;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.85rem;
+            background: var(--success);
+        }
+
+        .code-badge {
+            background: var(--accent);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.85rem;
+        }
+
+        .status-tag {
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background: var(--danger);
+        }
+
+        .status-progress {
+            background: var(--warning);
+        }
+
+        .status-completed {
+            background: var(--success);
         }
 
         .empty-state {
@@ -199,106 +302,245 @@
     <div id="dashboard">
         <div class="header">
             <div>
-                <h1>Messages</h1>
-                <p style="color: var(--text-secondary);">View contact form submissions</p>
+                <h1 style="font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--text);">Mahmoud Reda <span
+                        style="font-size: 0.5em; background: var(--primary); color: #fff; padding: 2px 8px; border-radius: 4px; vertical-align: middle;">Admin</span>
+                </h1>
+                <p style="color: var(--text-secondary); letter-spacing: 1px; font-size: 0.9rem;">Professional Control
+                    Center</p>
             </div>
             <button class="logout-btn" onclick="logout()">
                 <i class="fas fa-sign-out-alt"></i> Logout
             </button>
         </div>
 
-        <div class="messages-grid" id="messages-container">
-            <!-- Messages will be loaded here -->
-            <div class="empty-state">
-                <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
-                <p>Loading messages...</p>
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('projects')">Project Requests</button>
+            <button class="tab-btn" onclick="switchTab('messages')">Messages</button>
+        </div>
+
+        <!-- Project Requests Tab -->
+        <div id="projects-tab" class="tab-content active">
+            <div class="messages-grid" id="projects-container">
+                <div class="empty-state">No project requests yet.</div>
+            </div>
+        </div>
+
+        <!-- Messages Tab -->
+        <div id="messages-tab" class="tab-content">
+            <div class="messages-grid" id="messages-container">
+                <div class="empty-state">No messages yet.</div>
             </div>
         </div>
     </div>
 
-    <script type="module">
-        // Firebase code will go here
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    <script>
+        // --- Appwrite Configuration ---
+        const { Client, Databases, Query, ID } = Appwrite;
+        const client = new Client()
+            .setEndpoint('https://cloud.appwrite.io/v1')
+            .setProject('697121c70024e4e94ac3');
 
-        // --- REPLACE WITH YOUR FIREBASE CONFIG ---
-        const firebaseConfig = {
-            apiKey: "AIzaSy...",
-            authDomain: "your-project.firebaseapp.com",
-            projectId: "your-project-id",
-            storageBucket: "your-project.appspot.com",
-            messagingSenderId: "...",
-            appId: "..."
-        };
-        // -----------------------------------------
+        const databases = new Databases(client);
+        const DB_ID = '6971223f003e5f162359';
+        const PROJECT_COLLECTION_ID = 'project_requests';
+        const CONTACT_COLLECTION_ID = 'contact_messages';
 
-        // Initialize Firebase (Uncomment when config is real)
-        // const app = initializeApp(firebaseConfig);
-        // const db = getFirestore(app);
-
+        // --- Authentication ---
         window.checkAuth = function () {
             const pass = document.getElementById('admin-password').value;
-            // Simple hardcoded password for demo
             if (pass === 'admin123') {
-                document.getElementById('login-screen').style.display = 'none';
-                document.getElementById('dashboard').style.display = 'block';
-                loadMessages();
+                sessionStorage.setItem('admin_logged_in', 'true');
+                showDashboard();
             } else {
                 document.getElementById('error-msg').style.display = 'block';
             }
         }
 
+        function showDashboard() {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            loadAllData();
+        }
+
+        // Auto-login if session exists
+        window.onload = function () {
+            if (sessionStorage.getItem('admin_logged_in') === 'true') {
+                showDashboard();
+            }
+        }
+
         window.logout = function () {
+            sessionStorage.removeItem('admin_logged_in');
             location.reload();
+        }
+
+        // --- Tabs ---
+        window.switchTab = function (tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            if (tab === 'projects') {
+                document.querySelector('.tab-btn:nth-child(1)').classList.add('active');
+                document.getElementById('projects-tab').classList.add('active');
+                loadProjects();
+            } else {
+                document.querySelector('.tab-btn:nth-child(2)').classList.add('active');
+                document.getElementById('messages-tab').classList.add('active');
+                loadMessages();
+            }
+        }
+
+        // --- Data Handling ---
+        function loadAllData() {
+            loadProjects();
+            loadMessages();
+        }
+
+        window.loadProjects = async function () {
+            const container = document.getElementById('projects-container');
+            console.log('Loading projects from Appwrite...');
+
+            try {
+                // Simplified fetch to test basic connection
+                const response = await databases.listDocuments(DB_ID, PROJECT_COLLECTION_ID);
+                console.log('Appwrite Projects Response:', response);
+                const projects = response.documents;
+
+                if (projects.length === 0) {
+                    container.innerHTML = '<div class="empty-state"><i class="fas fa-folder-open" style="font-size: 3rem; opacity: 0.5; margin-bottom:1rem;"></i><p>No project requests yet.</p></div>';
+                    return;
+                }
+
+                container.innerHTML = '';
+                projects.forEach((proj) => {
+                    const date = new Date(proj.$createdAt).toLocaleString();
+                    const statusClass = proj.status === 'Completed' ? 'status-completed' : (proj.status === 'In Progress' ? 'status-progress' : 'status-pending');
+
+                    const html = `
+                        <div class="message-card">
+                            <div class="msg-header">
+                                <span><i class="far fa-calendar"></i> ${date}</span>
+                                <span class="code-badge">${proj.code}</span>
+                            </div>
+                            <strong class="msg-sender">${proj.clientName || 'N/A'}'s Project</strong>
+                            <div class="project-details">
+                                <p><strong>Client:</strong> ${proj.clientName || 'N/A'}</p>
+                                <p><strong>Email:</strong> ${proj.clientEmail}</p>
+                                <p><strong>Phone:</strong> ${proj.clientPhone}</p>
+                                <p><strong>Type:</strong> ${proj.projectType}</p>
+                                <p><strong>Status:</strong> <span class="status-tag ${statusClass}">${proj.status}</span> (${proj.percentage}%)</p>
+                            </div>
+                            <div class="msg-body">
+                                <strong>Brief:</strong><br>${proj.projectNotes}
+                            </div>
+                            <div class="status-controls">
+                                <select class="status-select" id="status-${proj.$id}">
+                                    <option value="Pending Review" ${proj.status === 'Pending Review' ? 'selected' : ''}>Pending Review</option>
+                                    <option value="In Progress" ${proj.status === 'In Progress' ? 'selected' : ''}>In Progress</option>
+                                    <option value="Testing" ${proj.status === 'Testing' ? 'selected' : ''}>Testing</option>
+                                    <option value="Completed" ${proj.status === 'Completed' ? 'selected' : ''}>Completed</option>
+                                </select>
+                                <input type="number" class="status-select" style="width: 60px; flex-grow: 0;" id="percent-${proj.$id}" value="${proj.percentage}" min="0" max="100">
+                                <input type="text" class="status-select" id="delivery-${proj.$id}" value="${proj.delivery}" placeholder="Delivery Date">
+                                <button class="update-btn" onclick="updateProject('${proj.$id}')">Update</button>
+                                <button class="logout-btn" style="background: var(--danger); margin-left: auto; width:40px; justify-content:center;" onclick="deleteProject('${proj.$id}')"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                    `;
+                    container.innerHTML += html;
+                });
+            } catch (err) {
+                console.error('Appwrite Project Load Error:', err);
+                if (err.code === 403) {
+                    alert('خطأ في تحميل المشاريع: Appwrite يمنع الاتصال (CORS). تأكد من تحديث صفحة الأدمن أو إضافة الرابط في المنصات.');
+                }
+                container.innerHTML = `<div class="empty-state">Error loading projects: ${err.message || 'Check console'}</div>`;
+            }
         }
 
         window.loadMessages = async function () {
             const container = document.getElementById('messages-container');
 
-            // Simulation for now until Firebase is connected
-            container.innerHTML = `
-                <div class="message-card">
-                    <div class="msg-header">
-                        <span><i class="far fa-calendar"></i> Just now</span>
-                        <span style="color: var(--success);">New</span>
-                    </div>
-                    <strong class="msg-sender">John Doe</strong>
-                    <a href="mailto:john@example.com" class="msg-email">john@example.com</a>
-                    <div class="msg-body">
-                        This is a simulated message. Once Firebase is connected, real messages will appear here.
-                    </div>
-                </div>
-            `;
+            try {
+                const response = await databases.listDocuments(DB_ID, CONTACT_COLLECTION_ID, [Query.orderDesc('$createdAt')]);
+                const messages = response.documents;
 
-            /* Real Firebase Code:
-            const q = query(collection(db, "messages"), orderBy("timestamp", "desc"));
-            const querySnapshot = await getDocs(q);
-            
-            if(querySnapshot.empty) {
-                container.innerHTML = '<div class="empty-state">No messages yet.</div>';
-                return;
+                if (messages.length === 0) {
+                    container.innerHTML = '<div class="empty-state"><i class="fas fa-inbox" style="font-size: 3rem; opacity: 0.5; margin-bottom:1rem;"></i><p>No messages yet.</p></div>';
+                    return;
+                }
+
+                container.innerHTML = '';
+                messages.forEach((msg) => {
+                    const date = new Date(msg.$createdAt).toLocaleString();
+                    const html = `
+                        <div class="message-card">
+                            <div class="msg-header">
+                                <span><i class="far fa-calendar"></i> ${date}</span>
+                                <span style="color: var(--danger); cursor: pointer;" onclick="deleteMessage('${msg.$id}')"><i class="fas fa-trash"></i></span>
+                            </div>
+                            <strong class="msg-sender">${msg.name}</strong>
+                            <a href="mailto:${msg.email}" class="msg-email">${msg.email}</a>
+                            <div style="margin-bottom: 1rem; font-size: 0.9rem; color: var(--text-secondary);">
+                                <i class="fas fa-phone"></i> ${msg.phone || 'N/A'}
+                            </div>
+                            <div class="msg-body">
+                                ${msg.message}
+                            </div>
+                        </div>
+                    `;
+                    container.innerHTML += html;
+                });
+            } catch (err) {
+                console.error('Appwrite Message Load Error:', err);
+                if (err.code === 403) {
+                    alert('خطأ في تحميل الرسائل: Appwrite يمنع الاتصال (CORS).');
+                }
+                container.innerHTML = `<div class="empty-state">Error loading messages: ${err.message || 'Check console'}</div>`;
             }
+        }
 
-            container.innerHTML = '';
-            querySnapshot.forEach((doc) => {
-                const data = doc.data();
-                const date = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleDateString() : 'Unknown';
-                
-                const html = `
-                    <div class="message-card">
-                        <div class="msg-header">
-                            <span><i class="far fa-calendar"></i> ${date}</span>
-                        </div>
-                        <strong class="msg-sender">${data.name}</strong>
-                        <a href="mailto:${data.email}" class="msg-email">${data.email}</a>
-                        <div class="msg-body">
-                            ${data.message}
-                        </div>
-                    </div>
-                `;
-                container.innerHTML += html;
-            });
-            */
+        window.updateProject = async function (id) {
+            const status = document.getElementById(`status-${id}`).value;
+            const percentage = parseInt(document.getElementById(`percent-${id}`).value);
+            const delivery = document.getElementById(`delivery-${id}`).value;
+
+            try {
+                await databases.updateDocument(DB_ID, PROJECT_COLLECTION_ID, id, {
+                    status,
+                    percentage,
+                    delivery
+                });
+                loadProjects();
+                alert('Project updated successfully!');
+            } catch (err) {
+                console.error('Update Error:', err);
+                alert('Failed to update project.');
+            }
+        }
+
+        window.deleteProject = async function (id) {
+            if (confirm('Delete this project request?')) {
+                try {
+                    await databases.deleteDocument(DB_ID, PROJECT_COLLECTION_ID, id);
+                    loadProjects();
+                } catch (err) {
+                    console.error('Delete Error:', err);
+                    alert('Failed to delete project.');
+                }
+            }
+        }
+
+        window.deleteMessage = async function (id) {
+            if (confirm('Delete this message?')) {
+                try {
+                    await databases.deleteDocument(DB_ID, CONTACT_COLLECTION_ID, id);
+                    loadMessages();
+                } catch (err) {
+                    console.error('Message Delete Error:', err);
+                    alert('Failed to delete message.');
+                }
+            }
         }
     </script>
 </body>

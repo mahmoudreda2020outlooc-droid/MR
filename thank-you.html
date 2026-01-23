@@ -1,140 +1,195 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thank You - Mahmoud Reda</title>
+    <title>شكراً لتواصلك - محمود رضا</title>
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@400;600;700&display=swap"
+        rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <!-- Favicon -->
     <link rel="icon" href="favicon.png" type="image/png">
-
-    <!-- Reuse existing styles -->
+    <!-- Main Style -->
     <link rel="stylesheet" href="style.css">
 
     <style>
-        .thank-you-section {
+        :root {
+            --success-color: #10b981;
+            --accent-glow: rgba(59, 130, 246, 0.5);
+        }
+
+        body {
+            overflow: hidden;
+            font-family: 'Cairo', 'Inter', sans-serif;
+            background: #0f172a;
+        }
+
+        .thank-you-wrapper {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            padding: var(--spacing-md);
-            background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.1), transparent 40%),
-                radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.05), transparent 40%);
+            padding: 20px;
+            position: relative;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.15), transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.15), transparent 40%);
         }
 
-        .thank-you-card {
-            background: var(--bg-card);
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: var(--radius-lg);
-            padding: var(--spacing-xl);
-            max-width: 600px;
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 550px;
             width: 100%;
-            box-shadow: var(--shadow-xl);
-            animation: slideUp 0.6s ease-out;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 10;
+            animation: cardEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .success-icon {
-            width: 80px;
-            height: 80px;
-            background: rgba(16, 185, 129, 0.2);
-            color: var(--color-secondary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            margin: 0 auto var(--spacing-md);
-        }
-
-        .thank-you-card h1 {
-            font-size: 2.5rem;
-            margin-bottom: var(--spacing-sm);
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .thank-you-card p {
-            color: var(--color-text-secondary);
-            margin-bottom: var(--spacing-lg);
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-
-        .actions {
-            display: flex;
-            flex-direction: column;
-            gap: var(--spacing-md);
-        }
-
-        .whatsapp-btn {
-            background: #25D366;
-            color: white;
-            border: none;
-        }
-
-        .whatsapp-btn:hover {
-            background: #1faf53;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
-        }
-
-        .home-btn {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        @keyframes slideUp {
+        @keyframes cardEntrance {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: scale(0.9) translateY(30px);
             }
 
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: scale(1) translateY(0);
             }
+        }
+
+        .check-container {
+            width: 100px;
+            height: 100px;
+            background: var(--success-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            font-size: 3rem;
+            color: white;
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.4);
+            animation: pulseSuccess 2s infinite;
+        }
+
+        @keyframes pulseSuccess {
+            0% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 20px rgba(16, 185, 129, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+            }
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            color: white;
+            font-weight: 700;
+        }
+
+        p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 35px;
+        }
+
+        .btn-group {
+            display: grid;
+            gap: 15px;
+        }
+
+        .primary-btn {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+            filter: brightness(1.1);
+        }
+
+        .secondary-btn {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .secondary-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
         }
     </style>
 </head>
 
 <body>
-    <section class="thank-you-section">
-        <div class="thank-you-card">
-            <div class="success-icon">
+    <!-- Confetti Elements -->
+
+    <main class="thank-you-wrapper">
+        <div class="glass-card">
+            <div class="check-container">
                 <i class="fas fa-check"></i>
             </div>
 
-            <h1>Message Sent!</h1>
-
+            <h1>تم إرسال رسالتك بنجاح!</h1>
             <p>
-                Thanks for reaching out. I've received your email and will get back to you shortly.
-                <br><br>
-                <strong>In a hurry?</strong> You can notify me directly on WhatsApp to ensure I see it immediately.
+                شكراً لتواصلك معي. لقد استلمت رسالتك وسأقوم بالرد عليك في أقرب وقت ممكن.
+                <br>
+                يسعدني دائماً اهتمامك بالعمل معي!
             </p>
 
-            <div class="actions">
-                <a href="https://wa.me/201004897420?text=Hi%20Mahmoud%2C%20I%20just%20sent%20you%20an%20email%20via%20your%20portfolio.%20Please%20check%20it!"
-                    target="_blank" class="btn whatsapp-btn btn-full">
+            <div class="btn-group">
+                <a href="https://wa.me/201004897420" target="_blank" class="primary-btn">
                     <i class="fab fa-whatsapp"></i>
-                    <span>Notify me on WhatsApp</span>
+                    تنبيه عبر واتساب (رد أسرع)
                 </a>
-
-                <a href="index.html" class="btn home-btn btn-full">
-                    <i class="fas fa-arrow-left"></i>
-                    <span>Back to Portfolio</span>
+                <a href="index.html" class="secondary-btn">
+                    <i class="fas fa-arrow-right"></i>
+                    العودة للرئيسية
                 </a>
             </div>
         </div>
-    </section>
+    </main>
+
 </body>
 
 </html>

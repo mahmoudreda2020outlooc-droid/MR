@@ -25,6 +25,9 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+    <!-- Appwrite SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@14.0.0"></script>
+
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
 
@@ -32,7 +35,18 @@
     <link rel="icon" href="favicon.png" type="image/png">
 </head>
 
-<body>
+<body class="loading">
+    <!-- Preloader -->
+    <div id="preloader" class="preloader">
+        <div class="preloader-content">
+            <div class="preloader-logo">
+                <img src="logo.png" alt="Loading Logo">
+                <div class="loader-circle"></div>
+            </div>
+            <div class="loader-text" data-i18n="loading">Loading Experience...</div>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
@@ -46,6 +60,7 @@
                     <li><a href="#about" class="nav-link" data-i18n="nav_about">About</a></li>
                     <li><a href="#skills" class="nav-link" data-i18n="nav_skills">Skills</a></li>
                     <li><a href="#projects" class="nav-link" data-i18n="nav_projects">Projects</a></li>
+                    <li><a href="#tracking" class="nav-link" data-i18n="nav_portal">Project Portal</a></li>
                     <li><a href="#contact" class="nav-link" data-i18n="nav_contact">Contact</a></li>
                     <li class="nav-item-lang">
                         <button class="lang-btn" onclick="toggleLangMenu()" aria-label="Change Language">
@@ -123,7 +138,7 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="about">
+    <section id="about" class="about reveal-on-scroll">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title" data-i18n="about_title">About Me</h2>
@@ -170,7 +185,7 @@
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="skills">
+    <section id="skills" class="skills reveal-on-scroll">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title" data-i18n="skills_title">Skills & Technologies</h2>
@@ -179,7 +194,7 @@
             </div>
 
             <div class="skills-grid">
-                <div class="skill-card">
+                <div class="skill-card card-3d">
                     <div class="skill-icon">
                         <i class="fab fa-html5"></i>
                     </div>
@@ -190,7 +205,7 @@
                     <span class="skill-percentage">95%</span>
                 </div>
 
-                <div class="skill-card">
+                <div class="skill-card card-3d">
                     <div class="skill-icon">
                         <i class="fab fa-css3-alt"></i>
                     </div>
@@ -201,7 +216,7 @@
                     <span class="skill-percentage">90%</span>
                 </div>
 
-                <div class="skill-card">
+                <div class="skill-card card-3d">
                     <div class="skill-icon">
                         <i class="fab fa-js"></i>
                     </div>
@@ -212,7 +227,7 @@
                     <span class="skill-percentage">85%</span>
                 </div>
 
-                <div class="skill-card">
+                <div class="skill-card card-3d">
                     <div class="skill-icon">
                         <i class="fab fa-react"></i>
                     </div>
@@ -223,7 +238,7 @@
                     <span class="skill-percentage">80%</span>
                 </div>
 
-                <div class="skill-card">
+                <div class="skill-card card-3d">
                     <div class="skill-icon">
                         <i class="fab fa-git-alt"></i>
                     </div>
@@ -234,7 +249,7 @@
                     <span class="skill-percentage">88%</span>
                 </div>
 
-                <div class="skill-card">
+                <div class="skill-card card-3d">
                     <div class="skill-icon">
                         <i class="fab fa-github"></i>
                     </div>
@@ -245,7 +260,7 @@
                     <span class="skill-percentage">90%</span>
                 </div>
 
-                <div class="skill-card">
+                <div class="skill-card card-3d">
                     <div class="skill-icon">
                         <i class="fas fa-fire"></i>
                     </div>
@@ -256,7 +271,7 @@
                     <span class="skill-percentage">75%</span>
                 </div>
 
-                <div class="skill-card">
+                <div class="skill-card card-3d">
                     <div class="skill-icon">
                         <i class="fas fa-database"></i>
                     </div>
@@ -267,7 +282,7 @@
                     <span class="skill-percentage">80%</span>
                 </div>
 
-                <div class="skill-card">
+                <div class="skill-card card-3d">
                     <div class="skill-icon">
                         <i class="fas fa-mobile-alt"></i>
                     </div>
@@ -282,7 +297,7 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="projects">
+    <section id="projects" class="projects reveal-on-scroll">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title" data-i18n="projects_title">Featured Projects</h2>
@@ -291,75 +306,87 @@
             </div>
 
             <div class="projects-grid">
-                <div class="project-card">
+                <!-- ELMOHASEB ACADEMY -->
+                <div class="project-card card-3d">
                     <div class="project-image">
-                        <img src="https://via.placeholder.com/600x400/3b82f6/ffffff?text=E-Commerce+Platform"
-                            alt="E-Commerce Platform">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="#" class="project-link" aria-label="View live demo">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a>
-                                <a href="#" class="project-link" aria-label="View GitHub repository">
-                                    <i class="fab fa-github"></i>
-                                </a>
+                        <div class="project-carousel">
+                            <div class="carousel-track-container">
+                                <ul class="carousel-track">
+                                    <li class="carousel-slide current-slide">
+                                        <img src="elmohaseb-slide-1.png" alt="Elmohaseb Academy Slide 1">
+                                    </li>
+                                    <li class="carousel-slide">
+                                        <img src="elmohaseb-slide-2.png" alt="Elmohaseb Academy Slide 2">
+                                    </li>
+                                    <li class="carousel-slide">
+                                        <img src="elmohaseb-slide-3.png" alt="Elmohaseb Academy Slide 3">
+                                    </li>
+                                </ul>
+                            </div>
+                            <button class="carousel-btn prev">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="carousel-btn next">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                            <div class="carousel-nav carousel-dots">
+                                <button class="carousel-indicator active"></button>
+                                <button class="carousel-indicator"></button>
+                                <button class="carousel-indicator"></button>
                             </div>
                         </div>
-                    </div>
-                    <div class="project-info">
-                        <h3 data-i18n="project1_title">E-Commerce Platform</h3>
-                        <p data-i18n="project1_description">A full-featured online shopping platform with cart
-                            functionality, user authentication, and
-                            payment integration.</p>
-                        <div class="project-tags">
-                            <span class="tag">React</span>
-                            <span class="tag">Firebase</span>
-                            <span class="tag">CSS</span>
-                        </div>
-                        <div class="project-buttons">
-                            <a href="#" class="btn btn-small btn-primary">
-                                <span data-i18n="btn_live_demo">Live Demo</span>
-                                <i class="fas fa-arrow-right"></i>
-                            </a>
-                            <a href="#" class="btn btn-small btn-outline">
-                                <i class="fab fa-github"></i>
-                                <span data-i18n="btn_github">GitHub</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="https://via.placeholder.com/600x400/10b981/ffffff?text=Task+Manager+App"
-                            alt="Task Manager App">
+                        <!-- Project Overlay (Hidden on Mobile via CSS) -->
                         <div class="project-overlay">
                             <div class="project-links">
-                                <a href="#" class="project-link" aria-label="View live demo">
+                                <a href="https://mr-platform.net" target="_blank" rel="noopener noreferrer"
+                                    class="project-link" aria-label="View live demo">
                                     <i class="fas fa-external-link-alt"></i>
                                 </a>
-                                <a href="#" class="project-link" aria-label="View GitHub repository">
+                                <a href="https://github.com/mahmoudreda2020outlooc-droid/ELMOHASEB---ACADEMY."
+                                    target="_blank" rel="noopener noreferrer" class="project-link"
+                                    aria-label="View GitHub repository">
                                     <i class="fab fa-github"></i>
+                                </a>
+                                <a href="#" class="project-link zoom-btn" aria-label="Zoom Image">
+                                    <i class="fas fa-search-plus"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
                     <div class="project-info">
-                        <h3 data-i18n="project2_title">Task Manager App</h3>
-                        <p data-i18n="project2_description">An intuitive task management application with drag-and-drop
-                            functionality, categories, and
-                            priority levels.</p>
+                        <h3>ELMOHASEB ACADEMY</h3>
+                        <div class="project-desc-container">
+                            <ul class="feature-list">
+                                <li><i class="fas fa-shield-alt"></i> Multi-layer security system with strong content
+                                    protection</li>
+                                <li><i class="fas fa-video-slash"></i> Anti-screenshot & anti-screen-recording
+                                    mechanisms</li>
+                                <li><i class="fas fa-laptop-house"></i> One-device-per-account policy to prevent account
+                                    sharing</li>
+                                <li><i class="fas fa-mobile-alt"></i> Fully responsive interface across all devices</li>
+                                <li><i class="fas fa-tachometer-alt"></i> Fast performance with optimized loading</li>
+                                <li><i class="fas fa-server"></i> Secure backend integration using Appwrite & Firebase
+                                </li>
+                                <li><i class="fas fa-check-circle"></i> Stable, production-ready architecture for
+                                    real-world usage</li>
+                            </ul>
+                        </div>
                         <div class="project-tags">
-                            <span class="tag">JavaScript</span>
                             <span class="tag">HTML</span>
                             <span class="tag">CSS</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">Appwrite</span>
+                            <span class="tag">Firebase</span>
                         </div>
                         <div class="project-buttons">
-                            <a href="#" class="btn btn-small btn-primary">
+                            <a href="https://mr-platform.net" target="_blank" rel="noopener noreferrer"
+                                class="btn btn-small btn-primary">
                                 <span data-i18n="btn_live_demo">Live Demo</span>
                                 <i class="fas fa-arrow-right"></i>
                             </a>
-                            <a href="#" class="btn btn-small btn-outline">
+                            <a href="https://github.com/mahmoudreda2020outlooc-droid/ELMOHASEB---ACADEMY."
+                                target="_blank" rel="noopener noreferrer" class="btn btn-small btn-outline">
                                 <i class="fab fa-github"></i>
                                 <span data-i18n="btn_github">GitHub</span>
                             </a>
@@ -367,43 +394,180 @@
                     </div>
                 </div>
 
-                <div class="project-card">
+                <!-- DREAM ACADEMY -->
+                <div class="project-card card-3d">
                     <div class="project-image">
-                        <img src="https://via.placeholder.com/600x400/8b5cf6/ffffff?text=Weather+Dashboard"
-                            alt="Weather Dashboard">
+                        <img src="dream-academy.png" alt="DREAM ACADEMY - Educational Platform">
                         <div class="project-overlay">
                             <div class="project-links">
-                                <a href="#" class="project-link" aria-label="View live demo">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a>
-                                <a href="#" class="project-link" aria-label="View GitHub repository">
+                                <a href="https://github.com/mahmoudreda2020outlooc-droid/DREAM-ACADMY" target="_blank"
+                                    rel="noopener noreferrer" class="project-link" aria-label="View GitHub repository">
                                     <i class="fab fa-github"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
                     <div class="project-info">
-                        <h3 data-i18n="project3_title">Weather Dashboard</h3>
-                        <p data-i18n="project3_description">A beautiful weather application with real-time data,
-                            forecasts, and location-based weather
-                            information.</p>
+                        <h3 data-i18n="project2_title">DREAM ACADEMY</h3>
+                        <p data-i18n="project2_description">An inspiring educational platform with modern UI, featuring
+                            course management, student dashboards, and interactive learning tools for enhanced student
+                            engagement.</p>
                         <div class="project-tags">
-                            <span class="tag">React</span>
-                            <span class="tag">API</span>
+                            <span class="tag">HTML</span>
                             <span class="tag">CSS</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">Firebase</span>
                         </div>
                         <div class="project-buttons">
-                            <a href="#" class="btn btn-small btn-primary">
-                                <span data-i18n="btn_live_demo">Live Demo</span>
-                                <i class="fas fa-arrow-right"></i>
-                            </a>
-                            <a href="#" class="btn btn-small btn-outline">
+                            <a href="https://github.com/mahmoudreda2020outlooc-droid/DREAM-ACADMY" target="_blank"
+                                rel="noopener noreferrer" class="btn btn-small btn-outline">
                                 <i class="fab fa-github"></i>
                                 <span data-i18n="btn_github">GitHub</span>
                             </a>
                         </div>
                     </div>
                 </div>
+
+                <!-- Portfolio Website (This Site) -->
+                <div class="project-card card-3d">
+                    <div class="project-image">
+                        <img src="https://via.placeholder.com/600x400/8b5cf6/ffffff?text=Portfolio+Website"
+                            alt="Portfolio Website">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#home" class="project-link" aria-label="View live demo">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3 data-i18n="project3_title">Portfolio Website</h3>
+                        <p data-i18n="project3_description">A modern, responsive portfolio website showcasing my skills,
+                            projects, and experience. Features multilingual support and smooth animations.</p>
+                        <div class="project-tags">
+                            <span class="tag">HTML</span>
+                            <span class="tag">CSS</span>
+                            <span class="tag">JavaScript</span>
+                        </div>
+                        <div class="project-buttons">
+                            <a href="#home" class="btn btn-small btn-primary">
+                                <span data-i18n="btn_live_demo">Live Demo</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Portal Section -->
+    <section id="tracking" class="tracking">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="portal_title">Project Portal</h2>
+                <div class="title-underline"></div>
+                <p class="section-description" data-i18n="portal_description">Start a new project or track an existing
+                    one</p>
+            </div>
+
+            <div class="portal-grid">
+                <!-- Left Column: Start New Project -->
+                <div class="portal-column">
+                    <div class="portal-card">
+                        <h3 data-i18n="request_title"><i class="fas fa-plus-circle"></i> Start New Project</h3>
+                        <form id="projectRequestForm" class="portal-form">
+                            <div class="form-group">
+                                <label for="clientName" data-i18n="label_name">Your Name</label>
+                                <input type="text" id="clientName" required placeholder="John Doe">
+                            </div>
+                            <div class="form-group">
+                                <label for="clientEmail" data-i18n="label_email">Your Email</label>
+                                <input type="email" id="clientEmail" required placeholder="john@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="clientPhone" data-i18n="label_phone">Phone Number</label>
+                                <input type="tel" id="clientPhone" required placeholder="+20 123 456 7890">
+                            </div>
+                            <div class="form-group">
+                                <label for="projectType" data-i18n="label_project_type">Project Type</label>
+                                <select id="projectType" required>
+                                    <option value="" disabled selected>Select project type...</option>
+                                    <option value="web">Web Development</option>
+                                    <option value="mobile">Mobile App</option>
+                                    <option value="uiux">UI/UX Design</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="projectNotes" data-i18n="label_message">Project Brief</label>
+                                <textarea id="projectNotes" rows="3" required
+                                    placeholder="Describe your project..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-full">
+                                <span data-i18n="btn_submit_request">Submit Request</span>
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Right Column: Track Project -->
+                <div class="portal-column">
+                    <div class="portal-card">
+                        <h3 data-i18n="tracking_title"><i class="fas fa-search"></i> Track Your Project</h3>
+                        <div class="tracking-search-box">
+                            <input type="text" id="projectCodeInput" placeholder="Enter Code (e.g., DEV-001)...">
+                            <button id="trackProjectBtn" class="btn btn-primary"
+                                style="padding: 0 1.5rem !important; border-radius: var(--radius-md);">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+
+                        <div id="trackingResult" class="tracking-result" style="display: none;">
+                            <div class="status-card-inner">
+                                <div class="status-header">
+                                    <h4 id="trackProjectName">Project Name</h4>
+                                    <span class="status-badge" id="trackStatusBadge">Status</span>
+                                </div>
+
+                                <div class="progress-container">
+                                    <div class="progress-info">
+                                        <span data-i18n="label_progress">Progress</span>
+                                        <span id="trackPercentageText">0%</span>
+                                    </div>
+                                    <div class="progress-bar-outer">
+                                        <div id="trackProgressBar" class="progress-bar-inner" style="width: 0%;"></div>
+                                    </div>
+                                </div>
+                                <div class="delivery-info">
+                                    <p><i class="far fa-calendar-alt"></i> <span id="trackDeliveryDate">Date</span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="trackingError" class="tracking-error" style="display: none;">
+                            <p data-i18n="tracking_error">Invalid code. Please try again.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Modal for Code Display -->
+        <div id="codeModal" class="modal">
+            <div class="modal-content code-modal-content">
+                <span class="close-modal">&times;</span>
+                <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+                <h2 data-i18n="request_success_title">Request Submitted!</h2>
+                <p data-i18n="request_success_message">Your project has been received. Save this code to track your
+                    progress:</p>
+                <div class="generated-code-box">
+                    <code id="generatedCode">ABC-123</code>
+                    <button id="copyCodeBtn" aria-label="Copy Code"><i class="far fa-copy"></i></button>
+                </div>
+                <p class="modal-note" data-i18n="request_success_note">We will contact you via email shortly.</p>
             </div>
         </div>
     </section>
@@ -427,7 +591,8 @@
                     </p>
 
                     <div class="contact-methods">
-                        <a href="mailto:mahmoudreda2020outlooc@gmail.com" class="contact-method">
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mahmoudreda2020outlooc@gmail.com"
+                            target="_blank" rel="noopener noreferrer" class="contact-method">
                             <div class="method-icon">
                                 <i class="fas fa-envelope"></i>
                             </div>
@@ -459,6 +624,17 @@
                                 <p>+20 100 489 7420</p>
                             </div>
                         </a>
+
+                        <a href="https://linkedin.com/in/YOUR_USERNAME" target="_blank" rel="noopener noreferrer"
+                            class="contact-method">
+                            <div class="method-icon">
+                                <i class="fab fa-linkedin"></i>
+                            </div>
+                            <div class="method-info">
+                                <h4 data-i18n="LinkedIn">LinkedIn</h4>
+                                <p data-i18n="linkedin_connect">Connect on LinkedIn</p>
+                            </div>
+                        </a>
                     </div>
 
                     <div class="social-links">
@@ -466,20 +642,20 @@
                             rel="noopener noreferrer" class="social-link" aria-label="GitHub">
                             <i class="fab fa-github"></i>
                         </a>
-                        <a href="https://linkedin.com/in/mahmoud" target="_blank" rel="noopener noreferrer"
-                            class="social-link" aria-label="LinkedIn">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
 
                         <a href="https://wa.me/201004897420" target="_blank" rel="noopener noreferrer"
                             class="social-link" aria-label="WhatsApp">
                             <i class="fab fa-whatsapp"></i>
                         </a>
+
+                        <a href="https://linkedin.com/in/YOUR_USERNAME" target="_blank" rel="noopener noreferrer"
+                            class="social-link" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
                     </div>
                 </div>
 
-                <form class="contact-form" id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID_HERE"
-                    method="POST">
+                <form class="contact-form" id="contact-form">
                     <div class="form-group">
                         <label for="name" data-i18n="label_name">Your Name</label>
                         <input type="text" id="name" name="name" placeholder="John Doe"
@@ -490,6 +666,12 @@
                         <label for="email" data-i18n="label_email">Your Email</label>
                         <input type="email" id="email" name="email" placeholder="john@example.com"
                             data-i18n-placeholder="placeholder_email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone" data-i18n="label_phone">Your Phone</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+20 123 456 7890"
+                            data-i18n-placeholder="placeholder_phone">
                     </div>
 
                     <div class="form-group">
@@ -530,6 +712,14 @@
     </footer>
 
     <!-- JavaScript -->
+    <!-- Lightbox with Navigation -->
+    <div id="lightbox" class="lightbox">
+        <button class="lightbox-close">&times;</button>
+        <button class="lightbox-btn prev"><i class="fas fa-chevron-left"></i></button>
+        <img id="lightbox-img" src="" alt="Full size preview">
+        <button class="lightbox-btn next"><i class="fas fa-chevron-right"></i></button>
+    </div>
+
     <script src="script.js"></script>
 
 </body>
