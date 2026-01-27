@@ -29,6 +29,7 @@
         .status-pending { background: var(--danger); }
         .status-progress { background: #f59e0b; }
         .status-completed { background: var(--success); }
+        .empty-state { text-align: center; padding: 3rem; color: var(--text-sec); grid-column: 1 / -1; }
     </style>
 </head>
 <body>
@@ -81,7 +82,7 @@
 
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('service-worker.js');
+                navigator.serviceWorker.register('service-worker.js').catch(err => console.error('SW Error:', err));
             });
         }
 
@@ -117,40 +118,54 @@
             const container = document.getElementById('projects-container');
             if (!container) return;
             try {
-                const response = await databases.listDocuments(DB_ID, PROJECT_COLLECTION_ID, [Query.orderDesc('')]);
-                container.innerHTML = response.documents.length === 0 ? '<div class="empty-state">No projects yet.</div>' : response.documents.map(proj => {
+                const response = await databases.listDocuments(DB_ID, PROJECT_COLLECTION_ID, [Query.orderDesc('$createdAt')]);
+                if (response.documents.length === 0) {
+                    container.innerHTML = '<div class="empty-state">No projects yet.</div>';
+                    return;
+                }
+                container.innerHTML = response.documents.map(proj => {
                     const statusClass = proj.status === 'Completed' ? 'status-completed' : (proj.status === 'In Progress' ? 'status-progress' : 'status-pending');
-                    return '<div class="message-card">' +
-                        '<div style="display:flex; justify-content:space-between; margin-bottom:1rem; font-size:0.8rem; color:var(--text-sec);">' +
-                            '<span>' + new Date(proj.).toLocaleDateString() + '</span>' +
-                            '<span style="background:var(--accent); color:white; padding:2px 6px; border-radius:4px;">' + proj.code + '</span>' +
-                        '</div>' +
-                        '<strong style="font-size:1.1rem; display:block; margin-bottom:0.5rem;">' + proj.clientName + ' Project</strong>' +
-                        '<div style="background:rgba(0,0,0,0.2); padding:0.75rem; border-radius:0.5rem; margin-bottom:1rem; font-size:0.9rem;">' +
-                            '<p>Email: ' + proj.clientEmail + '</p>' +
-                            '<p>Type: ' + proj.projectType + '</p>' +
-                            '<p>Status: <span class="status-tag ' + statusClass + '">' + proj.status + '</span></p>' +
-                        '</div>' +
-                        '<div style="background:rgba(255,255,255,0.05); padding:0.75rem; border-radius:0.5rem; font-size:0.9rem;">' + proj.projectNotes + '</div>' +
-                    '</div>';
+                    return `<div class="message-card">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:1rem; font-size:0.8rem; color:var(--text-sec);">
+                            <span>${new Date(proj.$createdAt).toLocaleDateString()}</span>
+                            <span style="background:var(--accent); color:white; padding:2px 6px; border-radius:4px;">${proj.code || 'N/A'}</span>
+                        </div>
+                        <strong style="font-size:1.1rem; display:block; margin-bottom:0.5rem;">${proj.clientName || 'Unnamed'} Project</strong>
+                        <div style="background:rgba(0,0,0,0.2); padding:0.75rem; border-radius:0.5rem; margin-bottom:1rem; font-size:0.9rem;">
+                            <p>Email: ${proj.clientEmail || 'N/A'}</p>
+                            <p>Type: ${proj.projectType || 'N/A'}</p>
+                            <p>Status: <span class="status-tag ${statusClass}">${proj.status || 'Pending'}</span></p>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.05); padding:0.75rem; border-radius:0.5rem; font-size:0.9rem;">${proj.projectNotes || 'No notes.'}</div>
+                    </div>`;
                 }).join('');
-            } catch (err) { container.innerHTML = 'Error: ' + err.message; }
+            } catch (err) { 
+                console.error('Projects Load Error:', err);
+                container.innerHTML = '<div class="empty-state" style="color:var(--danger)">Error: ' + err.message + '</div>'; 
+            }
         }
 
         async function loadMessages() {
             const container = document.getElementById('messages-container');
             if (!container) return;
             try {
-                const response = await databases.listDocuments(DB_ID, CONTACT_COLLECTION_ID, [Query.orderDesc('')]);
-                container.innerHTML = response.documents.length === 0 ? '<div class="empty-state">No messages yet.</div>' : response.documents.map(msg => {
-                    return '<div class="message-card">' +
-                        '<div style="margin-bottom:0.5rem; color:var(--text-sec); font-size:0.8rem;">' + new Date(msg.).toLocaleDateString() + '</div>' +
-                        '<strong style="display:block; margin-bottom:0.25rem;">' + msg.name + '</strong>' +
-                        '<a href="mailto:' + msg.email + '" style="color:var(--accent); font-size:0.9rem; display:block; margin-bottom:0.75rem;">' + msg.email + '</a>' +
-                        '<div style="background:rgba(255,255,255,0.05); padding:0.75rem; border-radius:0.5rem; font-size:0.9rem;">' + msg.message + '</div>' +
-                    '</div>';
+                const response = await databases.listDocuments(DB_ID, CONTACT_COLLECTION_ID, [Query.orderDesc('$createdAt')]);
+                if (response.documents.length === 0) {
+                    container.innerHTML = '<div class="empty-state">No messages yet.</div>';
+                    return;
+                }
+                container.innerHTML = response.documents.map(msg => {
+                    return `<div class="message-card">
+                        <div style="margin-bottom:0.5rem; color:var(--text-sec); font-size:0.8rem;">${new Date(msg.$createdAt).toLocaleDateString()}</div>
+                        <strong style="display:block; margin-bottom:0.25rem;">${msg.name || 'Anonymous'}</strong>
+                        <a href="mailto:${msg.email}" style="color:var(--accent); font-size:0.9rem; display:block; margin-bottom:0.75rem;">${msg.email || 'No email'}</a>
+                        <div style="background:rgba(255,255,255,0.05); padding:0.75rem; border-radius:0.5rem; font-size:0.9rem;">${msg.message || 'No message content.'}</div>
+                    </div>`;
                 }).join('');
-            } catch (err) { container.innerHTML = 'Error: ' + err.message; }
+            } catch (err) { 
+                console.error('Messages Load Error:', err);
+                container.innerHTML = '<div class="empty-state" style="color:var(--danger)">Error: ' + err.message + '</div>'; 
+            }
         }
     </script>
 </body>
