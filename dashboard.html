@@ -1,37 +1,189 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - Mahmoud Reda</title>
     <link rel="manifest" href="manifest.json">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/appwrite@14.0.0"></script>
     <style>
-        :root { --bg-dark: #0f172a; --bg-card: #1e293b; --text: #f8fafc; --text-sec: #94a3b8; --accent: #3b82f6; --danger: #ef4444; --success: #10b981; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background: var(--bg-dark); color: var(--text); min-height: 100vh; }
-        #login-screen { position: fixed; inset: 0; background: var(--bg-dark); display: flex; align-items: center; justify-content: center; z-index: 1000; }
-        .login-card { background: var(--bg-card); padding: 2.5rem; border-radius: 1.5rem; width: 90%; max-width: 400px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
-        input { width: 100%; padding: 0.85rem; border-radius: 0.75rem; border: 1px solid #334155; background: #0f172a; color: white; margin-bottom: 1.5rem; outline: none; }
-        .btn { width: 100%; padding: 0.85rem; border-radius: 0.75rem; border: none; background: var(--accent); color: white; font-weight: 600; cursor: pointer; transition: 0.3s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
-        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
-        #dashboard { display: none; max-width: 1200px; margin: 0 auto; padding: 2rem; }
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding: 1.5rem; background: var(--bg-card); border-radius: 1rem; border: 1px solid rgba(255,255,255,0.1); }
-        .header-actions { display: flex; gap: 0.75rem; }
-        .tabs { display: flex; gap: 1.5rem; margin-bottom: 2rem; border-bottom: 1px solid #334155; padding-bottom: 10px; }
-        .tab-btn { background: none; border: none; color: var(--text-sec); font-weight: 600; cursor: pointer; transition: 0.3s; padding: 0.5rem 1rem; }
-        .tab-btn.active { color: var(--accent); border-bottom: 2px solid var(--accent); margin-bottom: -12px; }
-        .messages-grid { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); }
-        .message-card { background: var(--bg-card); border-radius: 1rem; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.1); }
-        .status-tag { font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
-        .status-pending { background: var(--danger); }
-        .status-progress { background: #f59e0b; }
-        .status-completed { background: var(--success); }
-        .empty-state { text-align: center; padding: 3rem; color: var(--text-sec); grid-column: 1 / -1; }
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --text: #f8fafc;
+            --text-sec: #94a3b8;
+            --accent: #3b82f6;
+            --danger: #ef4444;
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: var(--bg-dark);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        #login-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .login-card {
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 0.85rem;
+            border-radius: 0.75rem;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: white;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 0.85rem;
+            border-radius: 0.75rem;
+            border: none;
+            background: var(--accent);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        #dashboard {
+            display: none;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 10px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-sec);
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            padding: 0.5rem 1rem;
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+            border-bottom: 2px solid var(--accent);
+            margin-bottom: -12px;
+        }
+
+        .messages-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        }
+
+        .message-card {
+            background: var(--bg-card);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .status-tag {
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background: var(--danger);
+        }
+
+        .status-progress {
+            background: var(--warning);
+        }
+
+        .status-completed {
+            background: var(--success);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-sec);
+            grid-column: 1 / -1;
+        }
+
+        .small-input {
+            padding: 0.5rem !important;
+            font-size: 0.85rem !important;
+            border-radius: 0.5rem !important;
+        }
     </style>
 </head>
+
 <body>
     <div id="login-screen">
         <div class="login-card">
@@ -45,16 +197,22 @@
         <div class="header">
             <h1 style="font-family:'Outfit'">Mahmoud Reda Admin</h1>
             <div class="header-actions">
-                <button id="installBtn" style="display:none; background:var(--success);" class="btn"><i class="fas fa-download"></i> Download App</button>
-                <button onclick="logout()" style="background:var(--danger);" class="btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                <button id="installBtn" style="display:none; background:var(--success);" class="btn"><i
+                        class="fas fa-download"></i> Download App</button>
+                <button onclick="logout()" style="background:var(--danger);" class="btn"><i
+                        class="fas fa-sign-out-alt"></i> Logout</button>
             </div>
         </div>
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('projects', this)">Projects</button>
             <button class="tab-btn" onclick="switchTab('messages', this)">Messages</button>
         </div>
-        <div id="projects" class="tab-content active"><div id="projects-container" class="messages-grid"></div></div>
-        <div id="messages" class="tab-content" style="display:none"><div id="messages-container" class="messages-grid"></div></div>
+        <div id="projects" class="tab-content active">
+            <div id="projects-container" class="messages-grid"></div>
+        </div>
+        <div id="messages" class="tab-content" style="display:none">
+            <div id="messages-container" class="messages-grid"></div>
+        </div>
     </div>
     <script>
         const { Client, Databases, Query } = Appwrite;
@@ -86,28 +244,28 @@
             });
         }
 
-        function checkAuth() { 
+        function checkAuth() {
             const val = document.getElementById('admin-password').value;
-            if (val === '0000') { 
-                localStorage.setItem('admin_auth', 'true'); 
-                showDashboard(); 
+            if (val === '0000') {
+                localStorage.setItem('admin_auth', 'true');
+                showDashboard();
             } else {
                 document.getElementById('error-msg').style.display = 'block';
             }
         }
-        function showDashboard() { 
-            document.getElementById('login-screen').style.display = 'none'; 
-            document.getElementById('dashboard').style.display = 'block'; 
-            loadProjects(); 
-            loadMessages(); 
+        function showDashboard() {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            loadProjects();
+            loadMessages();
         }
-        function logout() { 
-            localStorage.removeItem('admin_auth'); 
-            location.reload(); 
+        function logout() {
+            localStorage.removeItem('admin_auth');
+            location.reload();
         }
         if (localStorage.getItem('admin_auth') === 'true') showDashboard();
 
-        function switchTab(id, btn) { 
+        function switchTab(id, btn) {
             document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(id).style.display = 'block';
@@ -128,20 +286,45 @@
                     return `<div class="message-card">
                         <div style="display:flex; justify-content:space-between; margin-bottom:1rem; font-size:0.8rem; color:var(--text-sec);">
                             <span>${new Date(proj.$createdAt).toLocaleDateString()}</span>
-                            <span style="background:var(--accent); color:white; padding:2px 6px; border-radius:4px;">${proj.code || 'N/A'}</span>
+                            <span style="background:var(--accent); color:white; padding:2px 8px; border-radius:4px; font-weight:700;">${proj.code || 'N/A'}</span>
                         </div>
-                        <strong style="font-size:1.1rem; display:block; margin-bottom:0.5rem;">${proj.clientName || 'Unnamed'} Project</strong>
-                        <div style="background:rgba(0,0,0,0.2); padding:0.75rem; border-radius:0.5rem; margin-bottom:1rem; font-size:0.9rem;">
-                            <p>Email: ${proj.clientEmail || 'N/A'}</p>
-                            <p>Type: ${proj.projectType || 'N/A'}</p>
-                            <p>Status: <span class="status-tag ${statusClass}">${proj.status || 'Pending'}</span></p>
+                        <strong style="font-size:1.2rem; display:block; margin-bottom:0.5rem;">${proj.clientName || 'Unnamed'} Project</strong>
+                        <div style="background:rgba(0,0,0,0.2); padding:1rem; border-radius:0.75rem; margin-bottom:1rem; font-size:0.9rem;">
+                            <p><strong>Email:</strong> ${proj.clientEmail || 'N/A'}</p>
+                            <p><strong>Phone:</strong> ${proj.clientPhone || 'N/A'}</p>
+                            <p><strong>Type:</strong> ${proj.projectType || 'N/A'}</p>
+                            <p><strong>Status:</strong> <span class="status-tag ${statusClass}">${proj.status || 'Pending'}</span> (${proj.percentage || 0}%)</p>
                         </div>
-                        <div style="background:rgba(255,255,255,0.05); padding:0.75rem; border-radius:0.5rem; font-size:0.9rem;">${proj.projectNotes || 'No notes.'}</div>
+                        <div style="background:rgba(255,255,255,0.05); padding:1rem; border-radius:0.75rem; font-size:0.95rem; margin-bottom:1.5rem;">${proj.projectNotes || 'No notes.'}</div>
+                        
+                        <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top:1rem; display:flex; flex-wrap:wrap; gap:0.75rem;">
+                            <div style="flex:1; min-width:140px;">
+                                <label style="font-size:0.7rem; color:var(--text-sec); display:block; margin-bottom:4px;">Status</label>
+                                <select id="status-${proj.$id}" class="small-input">
+                                    <option value="Pending Review" ${proj.status === 'Pending Review' ? 'selected' : ''}>Pending Review</option>
+                                    <option value="In Progress" ${proj.status === 'In Progress' ? 'selected' : ''}>In Progress</option>
+                                    <option value="Testing" ${proj.status === 'Testing' ? 'selected' : ''}>Testing</option>
+                                    <option value="Completed" ${proj.status === 'Completed' ? 'selected' : ''}>Completed</option>
+                                </select>
+                            </div>
+                            <div style="width:80px;">
+                                <label style="font-size:0.7rem; color:var(--text-sec); display:block; margin-bottom:4px;">Progress %</label>
+                                <input type="number" id="percent-${proj.$id}" value="${proj.percentage || 0}" min="0" max="100" class="small-input">
+                            </div>
+                            <div style="flex:1; min-width:120px;">
+                                <label style="font-size:0.7rem; color:var(--text-sec); display:block; margin-bottom:4px;">Delivery Date</label>
+                                <input type="text" id="delivery-${proj.$id}" value="${proj.delivery || ''}" placeholder="TBD" class="small-input">
+                            </div>
+                            <div style="width:100%; display:flex; gap:0.5rem; margin-top:5px;">
+                                <button class="btn" style="background:var(--success); padding:8px; flex:1; font-size:0.85rem;" onclick="updateProject('${proj.$id}')"><i class="fas fa-save"></i> Save Changes</button>
+                                <button class="btn" style="background:var(--danger); width:44px;" onclick="deleteProject('${proj.$id}')"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
                     </div>`;
                 }).join('');
-            } catch (err) { 
+            } catch (err) {
                 console.error('Projects Load Error:', err);
-                container.innerHTML = '<div class="empty-state" style="color:var(--danger)">Error: ' + err.message + '</div>'; 
+                container.innerHTML = '<div class="empty-state" style="color:var(--danger)">Error: ' + err.message + '</div>';
             }
         }
 
@@ -156,17 +339,51 @@
                 }
                 container.innerHTML = response.documents.map(msg => {
                     return `<div class="message-card">
-                        <div style="margin-bottom:0.5rem; color:var(--text-sec); font-size:0.8rem;">${new Date(msg.$createdAt).toLocaleDateString()}</div>
-                        <strong style="display:block; margin-bottom:0.25rem;">${msg.name || 'Anonymous'}</strong>
-                        <a href="mailto:${msg.email}" style="color:var(--accent); font-size:0.9rem; display:block; margin-bottom:0.75rem;">${msg.email || 'No email'}</a>
-                        <div style="background:rgba(255,255,255,0.05); padding:0.75rem; border-radius:0.5rem; font-size:0.9rem;">${msg.message || 'No message content.'}</div>
+                        <div style="display:flex; justify-content:space-between; margin-bottom:1rem; font-size:0.8rem; color:var(--text-sec);">
+                            <span>${new Date(msg.$createdAt).toLocaleDateString()}</span>
+                            <i class="fas fa-trash" style="color:var(--danger); cursor:pointer;" onclick="deleteMessage('${msg.$id}')"></i>
+                        </div>
+                        <strong style="display:block; margin-bottom:0.25rem; font-size:1.1rem;">${msg.name || 'Anonymous'}</strong>
+                        <a href="mailto:${msg.email}" style="color:var(--accent); font-size:0.9rem; display:block; margin-bottom:0.5rem; text-decoration:none;"><i class="fas fa-envelope"></i> ${msg.email}</a>
+                        <div style="margin-bottom:1rem; font-size:0.9rem; color:var(--text-sec);"><i class="fas fa-phone"></i> ${msg.phone || 'N/A'}</div>
+                        <div style="background:rgba(255,255,255,0.05); padding:1rem; border-radius:0.75rem; font-size:0.95rem; line-height:1.5; color:#cbd5e1;">${msg.message}</div>
                     </div>`;
                 }).join('');
-            } catch (err) { 
+            } catch (err) {
                 console.error('Messages Load Error:', err);
-                container.innerHTML = '<div class="empty-state" style="color:var(--danger)">Error: ' + err.message + '</div>'; 
+                container.innerHTML = '<div class="empty-state" style="color:var(--danger)">Error: ' + err.message + '</div>';
+            }
+        }
+
+        window.updateProject = async function (id) {
+            const status = document.getElementById(`status-${id}`).value;
+            const percentage = parseInt(document.getElementById(`percent-${id}`).value);
+            const delivery = document.getElementById(`delivery-${id}`).value;
+            try {
+                await databases.updateDocument(DB_ID, PROJECT_COLLECTION_ID, id, { status, percentage, delivery });
+                alert('Project updated!');
+                loadProjects();
+            } catch (err) { alert('Update failed: ' + err.message); }
+        }
+
+        window.deleteProject = async function (id) {
+            if (confirm('Delete project request?')) {
+                try {
+                    await databases.deleteDocument(DB_ID, PROJECT_COLLECTION_ID, id);
+                    loadProjects();
+                } catch (err) { alert('Delete failed: ' + err.message); }
+            }
+        }
+
+        window.deleteMessage = async function (id) {
+            if (confirm('Delete message?')) {
+                try {
+                    await databases.deleteDocument(DB_ID, CONTACT_COLLECTION_ID, id);
+                    loadMessages();
+                } catch (err) { alert('Delete failed: ' + err.message); }
             }
         }
     </script>
 </body>
+
 </html>
