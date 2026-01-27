@@ -972,8 +972,7 @@ function initContactForm() {
                 name,
                 email,
                 phone,
-                message,
-                site: 'portfolio'
+                message
             }
         ).then(() => {
             window.location.href = 'thank-you.html';
