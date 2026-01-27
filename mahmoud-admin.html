@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        const PROJECT_KEY = 'mahmoud_portfolio_v3';
+        if (localStorage.getItem('active_project') !== PROJECT_KEY) {
+            localStorage.setItem('active_project', PROJECT_KEY);
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(regs => {
+                    for (let r of regs) r.unregister();
+                }).then(() => {
+                    caches.keys().then(names => {
+                        for (let n of names) caches.delete(n);
+                    }).then(() => { location.reload(true); });
+                });
+            }
+        }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Mahmoud Reda</title>
+    <link rel="manifest" href="manifest.json">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Appwrite SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@14.0.0"></script>
+    <style>
+        :root { --bg-dark: #0f172a; --bg-card: #1e293b; --text: #f8fafc; --text-sec: #94a3b8; --accent: #3b82f6; --danger: #ef4444; --success: #10b981; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: var(--bg-dark); color: var(--text); min-height: 100vh; }
+        #login-screen { position: fixed; inset: 0; background: var(--bg-dark); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+        .login-card { background: var(--bg-card); padding: 2.5rem; border-radius: 1.5rem; width: 90%; max-width: 400px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
+        input { width: 100%; padding: 0.85rem; border-radius: 0.75rem; border: 1px solid #334155; background: #0f172a; color: white; margin-bottom: 1.5rem; outline: none; }
+        .btn { width: 100%; padding: 0.85rem; border-radius: 0.75rem; border: none; background: var(--accent); color: white; font-weight: 600; cursor: pointer; transition: 0.3s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
+        #dashboard { display: none; max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding: 1.5rem; background: var(--bg-card); border-radius: 1rem; border: 1px solid rgba(255,255,255,0.1); }
+        .header-actions { display: flex; gap: 0.75rem; }
+        .tabs { display: flex; gap: 1.5rem; margin-bottom: 2rem; border-bottom: 1px solid #334155; padding-bottom: 10px; }
+        .tab-btn { background: none; border: none; color: var(--text-sec); font-weight: 600; cursor: pointer; transition: 0.3s; padding: 0.5rem 1rem; }
+        .tab-btn.active { color: var(--accent); border-bottom: 2px solid var(--accent); margin-bottom: -12px; }
+        .messages-grid { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); }
+        .message-card { background: var(--bg-card); border-radius: 1rem; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.1); }
+        .status-tag { font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+        .status-pending { background: var(--danger); }
+        .status-progress { background: #f59e0b; }
+        .status-completed { background: var(--success); }
+    </style>
+</head>
+<body>
+    <div id="login-screen">
+        <div class="login-card">
+            <h2 style="margin-bottom:1.5rem; font-family:'Outfit'">Admin Access</h2>
+            <input type="password" id="admin-password" placeholder="Access Code">
+            <button class="btn" onclick="checkAuth()">Login</button>
+            <p id="error-msg" style="color: var(--danger); margin-top: 1rem; display: none;">Wrong password!</p>
+        </div>
+    </div>
+    <div id="dashboard">
+        <div class="header">
+            <h1 style="font-family:'Outfit'">Mahmoud Reda Admin</h1>
+            <div class="header-actions">
+                <button id="installBtn" style="display:none; background:var(--success);" class="btn"><i class="fas fa-download"></i> Download App</button>
+                <button onclick="logout()" style="background:var(--danger);" class="btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+        </div>
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('projects', this)">Projects</button>
+            <button class="tab-btn" onclick="switchTab('messages', this)">Messages</button>
+        </div>
+        <div id="projects" class="tab-content active"><div id="projects-container" class="messages-grid"></div></div>
+        <div id="messages" class="tab-content" style="display:none"><div id="messages-container" class="messages-grid"></div></div>
+    </div>
+    <script>
+        const { Client, Databases, Query } = Appwrite;
+        const client = new Client().setEndpoint('https://cloud.appwrite.io/v1').setProject('697121c70024e4e94ac3');
+        const databases = new Databases(client);
+        const DB_ID = '6971223f003e5f162359';
+        const PROJECT_COLLECTION_ID = 'project_requests';
+        const CONTACT_COLLECTION_ID = 'contact_messages';
+
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installBtn').style.display = 'inline-flex';
+        });
+
+        document.getElementById('installBtn').addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') document.getElementById('installBtn').style.display = 'none';
+                deferredPrompt = null;
+            }
+        });
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js');
+            });
+        }
+
+        function checkAuth() { 
+            const val = document.getElementById('admin-password').value;
+            if (val === '0000') { 
+                localStorage.setItem('admin_auth', 'true'); 
+                showDashboard(); 
+            } else {
+                document.getElementById('error-msg').style.display = 'block';
+            }
+        }
+        function showDashboard() { 
+            document.getElementById('login-screen').style.display = 'none'; 
+            document.getElementById('dashboard').style.display = 'block'; 
+            loadProjects(); 
+            loadMessages(); 
+        }
+        function logout() { 
+            localStorage.removeItem('admin_auth'); 
+            location.reload(); 
+        }
+        if (localStorage.getItem('admin_auth') === 'true') showDashboard();
+
+        function switchTab(id, btn) { 
+            document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(id).style.display = 'block';
+            btn.classList.add('active');
+        }
+
+        async function loadProjects() {
+            const container = document.getElementById('projects-container');
+            if (!container) return;
+            try {
+                const response = await databases.listDocuments(DB_ID, PROJECT_COLLECTION_ID, [Query.orderDesc('$createdAt'), Query.equal('site', 'portfolio')]);
+                container.innerHTML = response.documents.map(proj => {
+                    const statusClass = proj.status === 'Completed' ? 'status-completed' : (proj.status === 'In Progress' ? 'status-progress' : 'status-pending');
+                    return `<div class="message-card">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:1rem; font-size:0.8rem; color:var(--text-sec);">
+                            <span>${new Date(proj.$createdAt).toLocaleDateString()}</span>
+                            <span style="background:var(--accent); color:white; padding:2px 6px; border-radius:4px;">${proj.code}</span>
+                        </div>
+                        <strong style="font-size:1.1rem; display:block; margin-bottom:0.5rem;">${proj.clientName} Project</strong>
+                        <div style="background:rgba(0,0,0,0.2); padding:0.75rem; border-radius:0.5rem; margin-bottom:1rem; font-size:0.9rem;">
+                            <p>Email: ${proj.clientEmail}</p>
+                            <p>Type: ${proj.projectType}</p>
+                            <p>Status: <span class="status-tag ${statusClass}">${proj.status}</span></p>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.05); padding:0.75rem; border-radius:0.5rem; font-size:0.9rem;">${proj.projectNotes}</div>
+                    </div>`;
+                }).join('');
+            } catch (err) { container.innerHTML = 'Error: ' + err.message; }
+        }
+
+        async function loadMessages() {
+            const container = document.getElementById('messages-container');
+            if (!container) return;
+            try {
+                const response = await databases.listDocuments(DB_ID, CONTACT_COLLECTION_ID, [Query.orderDesc('$createdAt'), Query.equal('site', 'portfolio')]);
+                container.innerHTML = response.documents.map(msg => {
+                    return `<div class="message-card">
+                        <div style="margin-bottom:0.5rem; color:var(--text-sec); font-size:0.8rem;">${new Date(msg.$createdAt).toLocaleDateString()}</div>
+                        <strong style="display:block; margin-bottom:0.25rem;">${msg.name}</strong>
+                        <a href="mailto:${msg.email}" style="color:var(--accent); font-size:0.9rem; display:block; margin-bottom:0.75rem;">${msg.email}</a>
+                        <div style="background:rgba(255,255,255,0.05); padding:0.75rem; border-radius:0.5rem; font-size:0.9rem;">${msg.message}</div>
+                    </div>`;
+                }).join('');
+            } catch (err) { container.innerHTML = 'Error: ' + err.message; }
+        }
+    </script>
+</body>
+</html>

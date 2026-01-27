@@ -1,20 +1,35 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <script>
+        const PROJECT_KEY = 'mahmoud_portfolio_v3';
+        if (localStorage.getItem('active_project') !== PROJECT_KEY) {
+            localStorage.setItem('active_project', PROJECT_KEY);
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(regs => {
+                    for (let r of regs) r.unregister();
+                }).then(() => {
+                    caches.keys().then(names => {
+                        for (let n of names) caches.delete(n);
+                    }).then(() => { location.reload(true); });
+                });
+            }
+        }
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Mahmoud - Web Developer Portfolio. Building modern, fast, and user-friendly websites with cutting-edge technologies. مطور ويب محترف - بناء مواقع حديثة وسريعة.">
+        content="Mahmoud - Web Developer Portfolio. Building modern, fast, and user-friendly websites with cutting-edge technologies. ظ…ط·ظˆط± ظˆظٹط¨ ظ…ط­طھط±ظپ - ط¨ظ†ط§ط، ظ…ظˆط§ظ‚ط¹ ط­ط¯ظٹط«ط© ظˆط³ط±ظٹط¹ط©.">
     <meta name="keywords"
-        content="web developer, portfolio, HTML, CSS, JavaScript, React, Firebase, Git, مطور ويب, تصميم مواقع, مبرمج">
+        content="web developer, portfolio, HTML, CSS, JavaScript, React, Firebase, Git, ظ…ط·ظˆط± ظˆظٹط¨, طھطµظ…ظٹظ… ظ…ظˆط§ظ‚ط¹, ظ…ط¨ط±ظ…ط¬">
     <meta name="author" content="Mahmoud">
     <meta name="robots" content="index, follow">
 
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Mahmoud - Web Developer Portfolio | مطور ويب">
+    <meta property="og:title" content="Mahmoud - Web Developer Portfolio | ظ…ط·ظˆط± ظˆظٹط¨">
     <meta property="og:description"
-        content="Building modern, fast, and user-friendly websites. بناء مواقع عصرية وسريعة.">
+        content="Building modern, fast, and user-friendly websites. ط¨ظ†ط§ط، ظ…ظˆط§ظ‚ط¹ ط¹طµط±ظٹط© ظˆط³ط±ظٹط¹ط©.">
     <meta property="og:image" content="https://mahmoudreda2020outlooc-droid.github.io/MR/og-image.png">
     <meta property="og:url" content="https://mahmoudreda2020outlooc-droid.github.io/MR/">
     <meta property="og:type" content="website">
@@ -24,7 +39,7 @@
     <meta name="twitter:title" content="Mahmoud - Web Developer Portfolio">
     <meta name="twitter:description" content="Building modern, fast, and user-friendly websites">
 
-    <title>Mahmoud - Web Developer Portfolio | مطور ويب</title>
+    <title>Mahmoud - Web Developer Portfolio | ظ…ط·ظˆط± ظˆظٹط¨</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,11 +53,20 @@
     <!-- Appwrite SDK -->
     <script src="https://cdn.jsdelivr.net/npm/appwrite@14.0.0"></script>
 
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=2">
 
     <!-- Favicon -->
     <link rel="icon" href="favicon.png" type="image/png">
+    <script>
+        // Unregister any service workers to separate from other projects
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(registrations => {
+                for (let registration of registrations) {
+                    registration.unregister();
+                }
+            });
+        }
+    </script>
 </head>
 
 <body class="loading">
@@ -50,19 +74,20 @@
     <div id="preloader" class="preloader">
         <div class="preloader-content">
             <div class="preloader-logo">
-                <img src="logo.png" alt="Loading Logo">
+                <img src="logo.png?v=2" alt="Loading Logo">
                 <div class="loader-circle"></div>
             </div>
             <div class="loader-text" data-i18n="loading">Loading Experience...</div>
         </div>
     </div>
 
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
             <div class="nav-wrapper">
                 <a href="#" class="logo" onclick="openLogoModal(event)">
-                    <img src="logo.png" alt="Mahmoud Logo" class="logo-image">
+                    <img src="logo.png?v=2" alt="Mahmoud Logo" class="logo-image">
                 </a>
 
                 <ul class="nav-menu">
@@ -135,7 +160,7 @@
                     <!-- Center MR Logo -->
                     <div class="center-logo">
                         <div class="logo-glow"></div>
-                        <img src="mr-card.png" alt="MR Logo" class="center-mr-logo">
+                        <img src="mr-card.png?v=2" alt="MR Logo" class="center-mr-logo">
                     </div>
                 </div>
             </div>
@@ -167,7 +192,7 @@
                     <p data-i18n="about_p1">
                         I'm a passionate web developer dedicated to creating modern, fast, and user-friendly websites. I
                         hold a five-year Industrial Diploma and am currently a student at the Faculty of Industrial
-                        Technology and Energy – Borg El Arab University, majoring in Information Technology (IT).
+                        Technology and Energy â€“ Borg El Arab University, majoring in Information Technology (IT).
                     </p>
                     <p data-i18n="about_p2">
                         With a keen eye for design and a foundation in systems thinking, I transform ideas into engaging
@@ -694,7 +719,7 @@
             <button class="modal-close" onclick="closeLogoModal()" aria-label="Close modal">
                 <i class="fas fa-times"></i>
             </button>
-            <img src="logo.png" alt="Mahmoud Logo" class="modal-logo">
+            <img src="logo.png?v=2" alt="Mahmoud Logo" class="modal-logo">
             <p class="modal-caption">Mahmoud - Web Developer</p>
         </div>
     </div>
@@ -718,7 +743,7 @@
         <button class="lightbox-btn next"><i class="fas fa-chevron-right"></i></button>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=2"></script>
 
 </body>
 

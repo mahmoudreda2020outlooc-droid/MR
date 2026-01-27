@@ -36,9 +36,7 @@ window.addEventListener('load', () => {
             document.body.classList.remove('loading');
         }, 2000); // 2 seconds to make sure it's seen
     }
-});
-
-// ========================================
+});// ========================================
 // Mobile Menu Toggle
 // ========================================
 const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
@@ -861,7 +859,7 @@ function initProjectPortal() {
                     projectNotes: projectNotes,
                     status: 'Pending Review',
                     percentage: 5,
-                    delivery: 'TBD (After Review)'
+                    delivery: 'TBD (After Review)', site: 'portfolio'
                 }
             ).then(() => {
                 // Show Success Modal
@@ -974,7 +972,8 @@ function initContactForm() {
                 name,
                 email,
                 phone,
-                message
+                message,
+                site: 'portfolio'
             }
         ).then(() => {
             window.location.href = 'thank-you.html';
