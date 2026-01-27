@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <script>
@@ -135,7 +135,7 @@
             const container = document.getElementById('projects-container');
             if (!container) return;
             try {
-                const response = await databases.listDocuments(DB_ID, PROJECT_COLLECTION_ID, [Query.orderDesc('$createdAt'), Query.equal('site', 'portfolio')]);
+                const response = await databases.listDocuments(DB_ID, PROJECT_COLLECTION_ID, [Query.orderDesc('$createdAt')]);
                 container.innerHTML = response.documents.map(proj => {
                     const statusClass = proj.status === 'Completed' ? 'status-completed' : (proj.status === 'In Progress' ? 'status-progress' : 'status-pending');
                     return `<div class="message-card">
@@ -159,7 +159,7 @@
             const container = document.getElementById('messages-container');
             if (!container) return;
             try {
-                const response = await databases.listDocuments(DB_ID, CONTACT_COLLECTION_ID, [Query.orderDesc('$createdAt'), Query.equal('site', 'portfolio')]);
+                const response = await databases.listDocuments(DB_ID, CONTACT_COLLECTION_ID, [Query.orderDesc('$createdAt')]);
                 container.innerHTML = response.documents.map(msg => {
                     return `<div class="message-card">
                         <div style="margin-bottom:0.5rem; color:var(--text-sec); font-size:0.8rem;">${new Date(msg.$createdAt).toLocaleDateString()}</div>

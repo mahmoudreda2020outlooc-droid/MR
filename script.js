@@ -1,4 +1,4 @@
-// ========================================
+﻿// ========================================
 // Appwrite Configuration
 // ========================================
 const { Client, Databases, Query, ID } = Appwrite;
@@ -340,7 +340,7 @@ const translations = {
         btn_view_projects: "View Projects",
         btn_contact_me: "Contact Me",
         scroll_down: "Scroll Down",
-        about_p1: "I'm a passionate web developer dedicated to creating modern, fast, and user-friendly websites. I hold a five-year Industrial Diploma and am currently a student at the Faculty of Industrial Technology and Energy – Borg El Arab University, majoring in Information Technology (IT).",
+        about_p1: "I'm a passionate web developer dedicated to creating modern, fast, and user-friendly websites. I hold a five-year Industrial Diploma and am currently a student at the Faculty of Industrial Technology and Energy â€“ Borg El Arab University, majoring in Information Technology (IT).",
         about_p2: "With a keen eye for design and a foundation in systems thinking, I transform ideas into engaging digital experiences. I apply my technical education to build modern, efficient web solutions that not only look great but perform exceptionally.",
         stat_p_title: "Practical",
         stat_p_desc: "Project Experience",
@@ -388,102 +388,102 @@ const translations = {
         loading: "Loading Experience..."
     },
     ar: {
-        nav_home: "الرئيسية",
-        nav_about: "من أنا",
-        nav_skills: "مهاراتي",
-        nav_projects: "أعمالي",
-        nav_portal: "بوابة المشاريع",
-        nav_contact: "اتصل بي",
-        hero_greeting: "أهلاً، أنا",
-        hero_subtitle: "مطور ويب ومحلل مشاكل إبداعي",
-        hero_description: "أقوم ببناء مواقع ويب حديثة وسريعة وسهلة الاستخدام تحول الأفكار إلى واقع. شغوف بالكود النظيف وتجارب المستخدم الاستثنائية.",
-        btn_view_projects: "عرض المشاريع",
-        btn_contact_me: "تواصل معي",
-        scroll_down: "مرر للأسفل",
-        about_p1: "أنا مطور ويب شغوف مكرس لإنشاء مواقع ويب حديثة وسريعة وسهلة الاستخدام. حاصل على دبلوم صناعي بنظام الخمس سنوات، وأنا حالياً طالب في كلية تكنولوجيا الصناعة والطاقة - جامعة برج العرب، متخصص في تكنولوجيا المعلومات (IT).",
-        about_p2: "بفضل حسي الفني ونظرتي التقنية، أقوم بتحويل الأفكار إلى تجارب رقمية جذابة. أطبق خلفيتي التعليمية والعملية في بناء حلول ويب متطورة وفعالة تضمن أعلى مستويات الأداء والجودة.",
-        stat_p_title: "خبرة",
-        stat_p_desc: "مشاريع عملية ونظيفة",
-        stat_t_title: "حلول",
-        stat_t_desc: "تقنيات ويب متطورة",
-        stat_s_title: "جودة",
-        stat_s_desc: "أداء واحترافية عالية",
-        skills_title: "المهارات والتقنيات",
-        skills_description: "الأدوات والتقنيات التي أعمل بها",
-        projects_title: "المشاريع المميزة",
-        projects_description: "بعض أعمالي الأخيرة",
-        project1_title: "منصة تجارة إلكترونية",
-        project1_description: "منصة تسوق عبر الإنترنت كاملة الميزات مع وظائف السلة، ومصادقة المستخدم، وتكامل الدفع.",
-        project2_title: "تطبيق مدير المهام",
-        project2_description: "تطبيق بديهي لإدارة المهام مع وظائف السحب والإفلات، والفئات، ومستويات الأولوية.",
-        project3_title: "لوحة طقس",
-        project3_description: "تطبيق طقس جميل مع بيانات في الوقت الفعلي وتوقعات ومعلومات الطقس بناءً على الموقع.",
-        btn_live_demo: "عرض مباشر",
-        btn_github: "جيت هاب",
-        contact_title: "ابق على تواصل",
-        contact_description: "دعنا نعمل معاً في مشروعك القادم",
-        connect_title: "لنتواصل",
-        connect_description: "أنا مهتم دائماً بسماع أخبار المشاريع والفرص الجديدة. سواء كان لديك سؤال أو تريد فقط إلقاء التحية، فلا تتردد في التواصل!",
-        label_name: "اسمك",
-        label_email: "بريدك الإلكتروني",
-        label_message: "تفاصيل المشروع",
-        placeholder_name: "محمود رضا",
+        nav_home: "ط§ظ„ط±ط¦ظٹط³ظٹط©",
+        nav_about: "ظ…ظ† ط£ظ†ط§",
+        nav_skills: "ظ…ظ‡ط§ط±ط§طھظٹ",
+        nav_projects: "ط£ط¹ظ…ط§ظ„ظٹ",
+        nav_portal: "ط¨ظˆط§ط¨ط© ط§ظ„ظ…ط´ط§ط±ظٹط¹",
+        nav_contact: "ط§طھطµظ„ ط¨ظٹ",
+        hero_greeting: "ط£ظ‡ظ„ط§ظ‹طŒ ط£ظ†ط§",
+        hero_subtitle: "ظ…ط·ظˆط± ظˆظٹط¨ ظˆظ…ط­ظ„ظ„ ظ…ط´ط§ظƒظ„ ط¥ط¨ط¯ط§ط¹ظٹ",
+        hero_description: "ط£ظ‚ظˆظ… ط¨ط¨ظ†ط§ط، ظ…ظˆط§ظ‚ط¹ ظˆظٹط¨ ط­ط¯ظٹط«ط© ظˆط³ط±ظٹط¹ط© ظˆط³ظ‡ظ„ط© ط§ظ„ط§ط³طھط®ط¯ط§ظ… طھط­ظˆظ„ ط§ظ„ط£ظپظƒط§ط± ط¥ظ„ظ‰ ظˆط§ظ‚ط¹. ط´ط؛ظˆظپ ط¨ط§ظ„ظƒظˆط¯ ط§ظ„ظ†ط¸ظٹظپ ظˆطھط¬ط§ط±ط¨ ط§ظ„ظ…ط³طھط®ط¯ظ… ط§ظ„ط§ط³طھط«ظ†ط§ط¦ظٹط©.",
+        btn_view_projects: "ط¹ط±ط¶ ط§ظ„ظ…ط´ط§ط±ظٹط¹",
+        btn_contact_me: "طھظˆط§طµظ„ ظ…ط¹ظٹ",
+        scroll_down: "ظ…ط±ط± ظ„ظ„ط£ط³ظپظ„",
+        about_p1: "ط£ظ†ط§ ظ…ط·ظˆط± ظˆظٹط¨ ط´ط؛ظˆظپ ظ…ظƒط±ط³ ظ„ط¥ظ†ط´ط§ط، ظ…ظˆط§ظ‚ط¹ ظˆظٹط¨ ط­ط¯ظٹط«ط© ظˆط³ط±ظٹط¹ط© ظˆط³ظ‡ظ„ط© ط§ظ„ط§ط³طھط®ط¯ط§ظ…. ط­ط§طµظ„ ط¹ظ„ظ‰ ط¯ط¨ظ„ظˆظ… طµظ†ط§ط¹ظٹ ط¨ظ†ط¸ط§ظ… ط§ظ„ط®ظ…ط³ ط³ظ†ظˆط§طھطŒ ظˆط£ظ†ط§ ط­ط§ظ„ظٹط§ظ‹ ط·ط§ظ„ط¨ ظپظٹ ظƒظ„ظٹط© طھظƒظ†ظˆظ„ظˆط¬ظٹط§ ط§ظ„طµظ†ط§ط¹ط© ظˆط§ظ„ط·ط§ظ‚ط© - ط¬ط§ظ…ط¹ط© ط¨ط±ط¬ ط§ظ„ط¹ط±ط¨طŒ ظ…طھط®طµطµ ظپظٹ طھظƒظ†ظˆظ„ظˆط¬ظٹط§ ط§ظ„ظ…ط¹ظ„ظˆظ…ط§طھ (IT).",
+        about_p2: "ط¨ظپط¶ظ„ ط­ط³ظٹ ط§ظ„ظپظ†ظٹ ظˆظ†ط¸ط±طھظٹ ط§ظ„طھظ‚ظ†ظٹط©طŒ ط£ظ‚ظˆظ… ط¨طھط­ظˆظٹظ„ ط§ظ„ط£ظپظƒط§ط± ط¥ظ„ظ‰ طھط¬ط§ط±ط¨ ط±ظ‚ظ…ظٹط© ط¬ط°ط§ط¨ط©. ط£ط·ط¨ظ‚ ط®ظ„ظپظٹطھظٹ ط§ظ„طھط¹ظ„ظٹظ…ظٹط© ظˆط§ظ„ط¹ظ…ظ„ظٹط© ظپظٹ ط¨ظ†ط§ط، ط­ظ„ظˆظ„ ظˆظٹط¨ ظ…طھط·ظˆط±ط© ظˆظپط¹ط§ظ„ط© طھط¶ظ…ظ† ط£ط¹ظ„ظ‰ ظ…ط³طھظˆظٹط§طھ ط§ظ„ط£ط¯ط§ط، ظˆط§ظ„ط¬ظˆط¯ط©.",
+        stat_p_title: "ط®ط¨ط±ط©",
+        stat_p_desc: "ظ…ط´ط§ط±ظٹط¹ ط¹ظ…ظ„ظٹط© ظˆظ†ط¸ظٹظپط©",
+        stat_t_title: "ط­ظ„ظˆظ„",
+        stat_t_desc: "طھظ‚ظ†ظٹط§طھ ظˆظٹط¨ ظ…طھط·ظˆط±ط©",
+        stat_s_title: "ط¬ظˆط¯ط©",
+        stat_s_desc: "ط£ط¯ط§ط، ظˆط§ط­طھط±ط§ظپظٹط© ط¹ط§ظ„ظٹط©",
+        skills_title: "ط§ظ„ظ…ظ‡ط§ط±ط§طھ ظˆط§ظ„طھظ‚ظ†ظٹط§طھ",
+        skills_description: "ط§ظ„ط£ط¯ظˆط§طھ ظˆط§ظ„طھظ‚ظ†ظٹط§طھ ط§ظ„طھظٹ ط£ط¹ظ…ظ„ ط¨ظ‡ط§",
+        projects_title: "ط§ظ„ظ…ط´ط§ط±ظٹط¹ ط§ظ„ظ…ظ…ظٹط²ط©",
+        projects_description: "ط¨ط¹ط¶ ط£ط¹ظ…ط§ظ„ظٹ ط§ظ„ط£ط®ظٹط±ط©",
+        project1_title: "ظ…ظ†طµط© طھط¬ط§ط±ط© ط¥ظ„ظƒطھط±ظˆظ†ظٹط©",
+        project1_description: "ظ…ظ†طµط© طھط³ظˆظ‚ ط¹ط¨ط± ط§ظ„ط¥ظ†طھط±ظ†طھ ظƒط§ظ…ظ„ط© ط§ظ„ظ…ظٹط²ط§طھ ظ…ط¹ ظˆط¸ط§ط¦ظپ ط§ظ„ط³ظ„ط©طŒ ظˆظ…طµط§ط¯ظ‚ط© ط§ظ„ظ…ط³طھط®ط¯ظ…طŒ ظˆطھظƒط§ظ…ظ„ ط§ظ„ط¯ظپط¹.",
+        project2_title: "طھط·ط¨ظٹظ‚ ظ…ط¯ظٹط± ط§ظ„ظ…ظ‡ط§ظ…",
+        project2_description: "طھط·ط¨ظٹظ‚ ط¨ط¯ظٹظ‡ظٹ ظ„ط¥ط¯ط§ط±ط© ط§ظ„ظ…ظ‡ط§ظ… ظ…ط¹ ظˆط¸ط§ط¦ظپ ط§ظ„ط³ط­ط¨ ظˆط§ظ„ط¥ظپظ„ط§طھطŒ ظˆط§ظ„ظپط¦ط§طھطŒ ظˆظ…ط³طھظˆظٹط§طھ ط§ظ„ط£ظˆظ„ظˆظٹط©.",
+        project3_title: "ظ„ظˆط­ط© ط·ظ‚ط³",
+        project3_description: "طھط·ط¨ظٹظ‚ ط·ظ‚ط³ ط¬ظ…ظٹظ„ ظ…ط¹ ط¨ظٹط§ظ†ط§طھ ظپظٹ ط§ظ„ظˆظ‚طھ ط§ظ„ظپط¹ظ„ظٹ ظˆطھظˆظ‚ط¹ط§طھ ظˆظ…ط¹ظ„ظˆظ…ط§طھ ط§ظ„ط·ظ‚ط³ ط¨ظ†ط§ط،ظ‹ ط¹ظ„ظ‰ ط§ظ„ظ…ظˆظ‚ط¹.",
+        btn_live_demo: "ط¹ط±ط¶ ظ…ط¨ط§ط´ط±",
+        btn_github: "ط¬ظٹطھ ظ‡ط§ط¨",
+        contact_title: "ط§ط¨ظ‚ ط¹ظ„ظ‰ طھظˆط§طµظ„",
+        contact_description: "ط¯ط¹ظ†ط§ ظ†ط¹ظ…ظ„ ظ…ط¹ط§ظ‹ ظپظٹ ظ…ط´ط±ظˆط¹ظƒ ط§ظ„ظ‚ط§ط¯ظ…",
+        connect_title: "ظ„ظ†طھظˆط§طµظ„",
+        connect_description: "ط£ظ†ط§ ظ…ظ‡طھظ… ط¯ط§ط¦ظ…ط§ظ‹ ط¨ط³ظ…ط§ط¹ ط£ط®ط¨ط§ط± ط§ظ„ظ…ط´ط§ط±ظٹط¹ ظˆط§ظ„ظپط±طµ ط§ظ„ط¬ط¯ظٹط¯ط©. ط³ظˆط§ط، ظƒط§ظ† ظ„ط¯ظٹظƒ ط³ط¤ط§ظ„ ط£ظˆ طھط±ظٹط¯ ظپظ‚ط· ط¥ظ„ظ‚ط§ط، ط§ظ„طھط­ظٹط©طŒ ظپظ„ط§ طھطھط±ط¯ط¯ ظپظٹ ط§ظ„طھظˆط§طµظ„!",
+        label_name: "ط§ط³ظ…ظƒ",
+        label_email: "ط¨ط±ظٹط¯ظƒ ط§ظ„ط¥ظ„ظƒطھط±ظˆظ†ظٹ",
+        label_message: "طھظپط§طµظٹظ„ ط§ظ„ظ…ط´ط±ظˆط¹",
+        placeholder_name: "ظ…ط­ظ…ظˆط¯ ط±ط¶ط§",
         placeholder_email: "example@mail.com",
-        placeholder_message: "أخبرني عن مشروعك...",
-        btn_send_message: "إرسال الرسالة",
-        LinkedIn: "لينكد إن",
-        linkedin_connect: "تواصل معي عبر لينكد إن",
-        portal_title: "بوابة المشاريع",
-        portal_description: "ابدأ مشروعاً جديداً أو تتبع مشروعاً قائماً",
-        request_title: "ابدأ مشروعاً جديداً",
-        label_phone: "رقم الهاتف",
-        label_project_type: "نوع المشروع",
-        btn_submit_request: "إرسال الطلب",
-        tracking_title: "تتبع مشروعك",
-        label_progress: "نسبة الإنجاز",
-        request_success_title: "تم إرسال الطلب!",
-        request_success_message: "تم استلام مشروعك بنجاح. احفظ هذا الكود لتتبع التقدم:",
-        request_success_note: "سنتواصل معك عبر الهاتف أو البريد الإلكتروني قريباً.",
-        tracking_error: "الكود غير صحيح. يرجى المحاولة مرة أخرى.",
-        loading: "جاري تحميل التجربة..."
+        placeholder_message: "ط£ط®ط¨ط±ظ†ظٹ ط¹ظ† ظ…ط´ط±ظˆط¹ظƒ...",
+        btn_send_message: "ط¥ط±ط³ط§ظ„ ط§ظ„ط±ط³ط§ظ„ط©",
+        LinkedIn: "ظ„ظٹظ†ظƒط¯ ط¥ظ†",
+        linkedin_connect: "طھظˆط§طµظ„ ظ…ط¹ظٹ ط¹ط¨ط± ظ„ظٹظ†ظƒط¯ ط¥ظ†",
+        portal_title: "ط¨ظˆط§ط¨ط© ط§ظ„ظ…ط´ط§ط±ظٹط¹",
+        portal_description: "ط§ط¨ط¯ط£ ظ…ط´ط±ظˆط¹ط§ظ‹ ط¬ط¯ظٹط¯ط§ظ‹ ط£ظˆ طھطھط¨ط¹ ظ…ط´ط±ظˆط¹ط§ظ‹ ظ‚ط§ط¦ظ…ط§ظ‹",
+        request_title: "ط§ط¨ط¯ط£ ظ…ط´ط±ظˆط¹ط§ظ‹ ط¬ط¯ظٹط¯ط§ظ‹",
+        label_phone: "ط±ظ‚ظ… ط§ظ„ظ‡ط§طھظپ",
+        label_project_type: "ظ†ظˆط¹ ط§ظ„ظ…ط´ط±ظˆط¹",
+        btn_submit_request: "ط¥ط±ط³ط§ظ„ ط§ظ„ط·ظ„ط¨",
+        tracking_title: "طھطھط¨ط¹ ظ…ط´ط±ظˆط¹ظƒ",
+        label_progress: "ظ†ط³ط¨ط© ط§ظ„ط¥ظ†ط¬ط§ط²",
+        request_success_title: "طھظ… ط¥ط±ط³ط§ظ„ ط§ظ„ط·ظ„ط¨!",
+        request_success_message: "طھظ… ط§ط³طھظ„ط§ظ… ظ…ط´ط±ظˆط¹ظƒ ط¨ظ†ط¬ط§ط­. ط§ط­ظپط¸ ظ‡ط°ط§ ط§ظ„ظƒظˆط¯ ظ„طھطھط¨ط¹ ط§ظ„طھظ‚ط¯ظ…:",
+        request_success_note: "ط³ظ†طھظˆط§طµظ„ ظ…ط¹ظƒ ط¹ط¨ط± ط§ظ„ظ‡ط§طھظپ ط£ظˆ ط§ظ„ط¨ط±ظٹط¯ ط§ظ„ط¥ظ„ظƒطھط±ظˆظ†ظٹ ظ‚ط±ظٹط¨ط§ظ‹.",
+        tracking_error: "ط§ظ„ظƒظˆط¯ ط؛ظٹط± طµط­ظٹط­. ظٹط±ط¬ظ‰ ط§ظ„ظ…ط­ط§ظˆظ„ط© ظ…ط±ط© ط£ط®ط±ظ‰.",
+        loading: "ط¬ط§ط±ظٹ طھط­ظ…ظٹظ„ ط§ظ„طھط¬ط±ط¨ط©..."
     },
     fr: {
         nav_home: "Accueil",
-        nav_about: "À propos",
-        nav_skills: "Compétences",
+        nav_about: "أ€ propos",
+        nav_skills: "Compأ©tences",
         nav_projects: "Projets",
         nav_portal: "Portail Projet",
         nav_contact: "Contact",
         hero_greeting: "Salut, je suis",
-        hero_subtitle: "Développeur Web & Solutionneur de Problèmes",
-        hero_description: "Je conçois des sites web modernes, rapides et conviviaux qui donnent vie aux idées. Passionné par le code propre et les expériences utilisateur exceptionnelles.",
+        hero_subtitle: "Dأ©veloppeur Web & Solutionneur de Problأ¨mes",
+        hero_description: "Je conأ§ois des sites web modernes, rapides et conviviaux qui donnent vie aux idأ©es. Passionnأ© par le code propre et les expأ©riences utilisateur exceptionnelles.",
         btn_view_projects: "Voir les projets",
         btn_contact_me: "Contactez-moi",
-        scroll_down: "Défiler vers le bas",
-        about_p1: "Je suis un développeur web passionné, dédié à la création de sites web modernes, rapides et conviviaux. Je détiens un diplôme industriel de cinq ans et je suis actuellement étudiant à la Faculté de Technologie Industrielle et d'Énergie – Université de Borg El Arab, avec une spécialisation en Technologie de l'Information (IT).",
-        about_p2: "Avec un œil attentif au design et une base solide en pensée systémique, je transforme les idées en expériences numériques engageantes. J'applique ma formation technique pour construire des solutions web modernes et efficaces qui sont non seulement esthétiques mais aussi performantes.",
+        scroll_down: "Dأ©filer vers le bas",
+        about_p1: "Je suis un dأ©veloppeur web passionnأ©, dأ©diأ© أ  la crأ©ation de sites web modernes, rapides et conviviaux. Je dأ©tiens un diplأ´me industriel de cinq ans et je suis actuellement أ©tudiant أ  la Facultأ© de Technologie Industrielle et d'أ‰nergie â€“ Universitأ© de Borg El Arab, avec une spأ©cialisation en Technologie de l'Information (IT).",
+        about_p2: "Avec un إ“il attentif au design et une base solide en pensأ©e systأ©mique, je transforme les idأ©es en expأ©riences numأ©riques engageantes. J'applique ma formation technique pour construire des solutions web modernes et efficaces qui sont non seulement esthأ©tiques mais aussi performantes.",
         stat_p_title: "Pratique",
-        stat_p_desc: "Expérience Projet",
+        stat_p_desc: "Expأ©rience Projet",
         stat_t_title: "Moderne",
         stat_t_desc: "Solutions Tech",
         stat_s_title: "Premium",
-        stat_s_desc: "Focus Qualité",
-        skills_title: "Compétences & Technologies",
+        stat_s_desc: "Focus Qualitأ©",
+        skills_title: "Compأ©tences & Technologies",
         skills_description: "Outils et technologies avec lesquels je travaille",
         projects_title: "Projets mis en avant",
-        projects_description: "Certains de mes travaux récents",
+        projects_description: "Certains de mes travaux rأ©cents",
         project1_title: "Plateforme E-commerce",
-        project1_description: "Une plateforme de shopping en ligne complète avec panier, authentification utilisateur et intégration de paiement.",
-        project2_title: "App de Gestion de Tâches",
-        project2_description: "Une application intuitive de gestion de tâches avec glisser-déposer, catégories et niveaux de priorité.",
-        project3_title: "Tableau de Bord Météo",
-        project3_description: "Une belle application météo avec données en temps réel, prévisions et informations météo basées sur la localisation.",
-        btn_live_demo: "Démo en direct",
+        project1_description: "Une plateforme de shopping en ligne complأ¨te avec panier, authentification utilisateur et intأ©gration de paiement.",
+        project2_title: "App de Gestion de Tأ¢ches",
+        project2_description: "Une application intuitive de gestion de tأ¢ches avec glisser-dأ©poser, catأ©gories et niveaux de prioritأ©.",
+        project3_title: "Tableau de Bord Mأ©tأ©o",
+        project3_description: "Une belle application mأ©tأ©o avec donnأ©es en temps rأ©el, prأ©visions et informations mأ©tأ©o basأ©es sur la localisation.",
+        btn_live_demo: "Dأ©mo en direct",
         btn_github: "GitHub",
         contact_title: "Contactez-nous",
         contact_description: "Travaillons ensemble sur votre prochain projet",
         connect_title: "Connectons-nous",
-        connect_description: "Je suis toujours intéressé par de nouveaux projets et opportunités. Que vous ayez une question ou que vous vouliez simplement dire bonjour, n'hésitez pas à nous contacter !",
+        connect_description: "Je suis toujours intأ©ressأ© par de nouveaux projets et opportunitأ©s. Que vous ayez une question ou que vous vouliez simplement dire bonjour, n'hأ©sitez pas أ  nous contacter !",
         label_name: "Votre Nom",
         label_email: "Votre Email",
         label_message: "Votre Message",
@@ -494,25 +494,25 @@ const translations = {
         LinkedIn: "LinkedIn",
         linkedin_connect: "Connectez-vous sur LinkedIn",
         portal_title: "Portail de Projet",
-        portal_description: "Démarrer un nouveau projet ou suivre un projet existant",
-        request_title: "Démarrer un projet",
-        label_phone: "Numéro de téléphone",
+        portal_description: "Dأ©marrer un nouveau projet ou suivre un projet existant",
+        request_title: "Dأ©marrer un projet",
+        label_phone: "Numأ©ro de tأ©lأ©phone",
         label_project_type: "Type de projet",
         btn_submit_request: "Soumettre",
         tracking_title: "Suivre votre projet",
         label_progress: "Progression",
-        request_success_title: "Demande envoyée !",
-        request_success_message: "Votre projet a été reçu. Enregistrez ce code pour suivre votre progression :",
-        request_success_note: "Nous vous contacterons par téléphone ou e-mail sous peu.",
-        tracking_error: "Code incorrect. Veuillez réessayer.",
-        loading: "Chargement de l'expérience..."
+        request_success_title: "Demande envoyأ©e !",
+        request_success_message: "Votre projet a أ©tأ© reأ§u. Enregistrez ce code pour suivre votre progression :",
+        request_success_note: "Nous vous contacterons par tأ©lأ©phone ou e-mail sous peu.",
+        tracking_error: "Code incorrect. Veuillez rأ©essayer.",
+        loading: "Chargement de l'expأ©rience..."
     }
 };
 
 const languages = [
-    { code: 'en', name: 'English', flag: '🇺🇸' },
-    { code: 'ar', name: 'العربية', flag: '🇸🇦' },
-    { code: 'fr', name: 'Français', flag: '🇫🇷' }
+    { code: 'en', name: 'English', flag: 'ًں‡؛ًں‡¸' },
+    { code: 'ar', name: 'ط§ظ„ط¹ط±ط¨ظٹط©', flag: 'ًں‡¸ًں‡¦' },
+    { code: 'fr', name: 'Franأ§ais', flag: 'ًں‡«ًں‡·' }
 ];
 
 function toggleLangMenu() {
@@ -859,7 +859,7 @@ function initProjectPortal() {
                     projectNotes: projectNotes,
                     status: 'Pending Review',
                     percentage: 5,
-                    delivery: 'TBD (After Review)', site: 'portfolio'
+                    delivery: 'TBD (After Review)'
                 }
             ).then(() => {
                 // Show Success Modal
@@ -871,7 +871,7 @@ function initProjectPortal() {
             }).catch(err => {
                 console.error('Appwrite Project Request Error:', err);
                 if (err.code === 403) {
-                    alert('بوابة Appwrite ترفض الاتصال (CORS). يرجى التأكد من إضافة localhost و 127.0.0.1 في منصات (Platforms) المشروع.');
+                    alert('ط¨ظˆط§ط¨ط© Appwrite طھط±ظپط¶ ط§ظ„ط§طھطµط§ظ„ (CORS). ظٹط±ط¬ظ‰ ط§ظ„طھط£ظƒط¯ ظ…ظ† ط¥ط¶ط§ظپط© localhost ظˆ 127.0.0.1 ظپظٹ ظ…ظ†طµط§طھ (Platforms) ط§ظ„ظ…ط´ط±ظˆط¹.');
                 } else {
                     alert('Error submitting request: ' + (err.message || 'Please check console.'));
                 }
@@ -980,7 +980,7 @@ function initContactForm() {
         }).catch(err => {
             console.error('Appwrite Contact Error:', err);
             if (err.code === 403) {
-                alert('بوابة Appwrite ترفض الاتصال (CORS). يرجى التأكد من إضافة localhost و 127.0.0.1 في منصات (Platforms) المشروع كما شرحت لك.');
+                alert('ط¨ظˆط§ط¨ط© Appwrite طھط±ظپط¶ ط§ظ„ط§طھطµط§ظ„ (CORS). ظٹط±ط¬ظ‰ ط§ظ„طھط£ظƒط¯ ظ…ظ† ط¥ط¶ط§ظپط© localhost ظˆ 127.0.0.1 ظپظٹ ظ…ظ†طµط§طھ (Platforms) ط§ظ„ظ…ط´ط±ظˆط¹ ظƒظ…ط§ ط´ط±ط­طھ ظ„ظƒ.');
             } else {
                 alert('Error sending message: ' + (err.message || 'Please check console.'));
             }
