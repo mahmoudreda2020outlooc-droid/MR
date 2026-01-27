@@ -1,6 +1,6 @@
-const CACHE_NAME = 'mahmoud-portfolio-admin-v3';
+const CACHE_NAME = 'mahmoud-portfolio-admin-v100';
 const ASSETS = [
-    '/mahmoud-admin.html',
+    '/dashboard.html',
     '/logo.png'
 ];
 

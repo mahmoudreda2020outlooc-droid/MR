@@ -2,7 +2,7 @@
     "name": "Mahmoud Admin Dashboard",
     "short_name": "Admin MR",
     "description": "Admin Control Panel for Mahmoud Portfolio",
-    "start_url": "mahmoud-admin.html",
+    "start_url": "dashboard.html",
     "display": "standalone",
     "theme_color": "#3b82f6",
     "background_color": "#0f172a",

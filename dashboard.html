@@ -1,30 +1,12 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <script>
-        const PROJECT_KEY = 'mahmoud_portfolio_v3';
-        if (localStorage.getItem('active_project') !== PROJECT_KEY) {
-            localStorage.setItem('active_project', PROJECT_KEY);
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.getRegistrations().then(regs => {
-                    for (let r of regs) r.unregister();
-                }).then(() => {
-                    caches.keys().then(names => {
-                        for (let n of names) caches.delete(n);
-                    }).then(() => { location.reload(true); });
-                });
-            }
-        }
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - Mahmoud Reda</title>
     <link rel="manifest" href="manifest.json">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@700&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Appwrite SDK -->
     <script src="https://cdn.jsdelivr.net/npm/appwrite@14.0.0"></script>
     <style>
         :root { --bg-dark: #0f172a; --bg-card: #1e293b; --text: #f8fafc; --text-sec: #94a3b8; --accent: #3b82f6; --danger: #ef4444; --success: #10b981; }
@@ -135,22 +117,22 @@
             const container = document.getElementById('projects-container');
             if (!container) return;
             try {
-                const response = await databases.listDocuments(DB_ID, PROJECT_COLLECTION_ID, [Query.orderDesc('$createdAt')]);
-                container.innerHTML = response.documents.map(proj => {
+                const response = await databases.listDocuments(DB_ID, PROJECT_COLLECTION_ID, [Query.orderDesc('')]);
+                container.innerHTML = response.documents.length === 0 ? '<div class="empty-state">No projects yet.</div>' : response.documents.map(proj => {
                     const statusClass = proj.status === 'Completed' ? 'status-completed' : (proj.status === 'In Progress' ? 'status-progress' : 'status-pending');
-                    return `<div class="message-card">
-                        <div style="display:flex; justify-content:space-between; margin-bottom:1rem; font-size:0.8rem; color:var(--text-sec);">
-                            <span>${new Date(proj.$createdAt).toLocaleDateString()}</span>
-                            <span style="background:var(--accent); color:white; padding:2px 6px; border-radius:4px;">${proj.code}</span>
-                        </div>
-                        <strong style="font-size:1.1rem; display:block; margin-bottom:0.5rem;">${proj.clientName} Project</strong>
-                        <div style="background:rgba(0,0,0,0.2); padding:0.75rem; border-radius:0.5rem; margin-bottom:1rem; font-size:0.9rem;">
-                            <p>Email: ${proj.clientEmail}</p>
-                            <p>Type: ${proj.projectType}</p>
-                            <p>Status: <span class="status-tag ${statusClass}">${proj.status}</span></p>
-                        </div>
-                        <div style="background:rgba(255,255,255,0.05); padding:0.75rem; border-radius:0.5rem; font-size:0.9rem;">${proj.projectNotes}</div>
-                    </div>`;
+                    return '<div class="message-card">' +
+                        '<div style="display:flex; justify-content:space-between; margin-bottom:1rem; font-size:0.8rem; color:var(--text-sec);">' +
+                            '<span>' + new Date(proj.).toLocaleDateString() + '</span>' +
+                            '<span style="background:var(--accent); color:white; padding:2px 6px; border-radius:4px;">' + proj.code + '</span>' +
+                        '</div>' +
+                        '<strong style="font-size:1.1rem; display:block; margin-bottom:0.5rem;">' + proj.clientName + ' Project</strong>' +
+                        '<div style="background:rgba(0,0,0,0.2); padding:0.75rem; border-radius:0.5rem; margin-bottom:1rem; font-size:0.9rem;">' +
+                            '<p>Email: ' + proj.clientEmail + '</p>' +
+                            '<p>Type: ' + proj.projectType + '</p>' +
+                            '<p>Status: <span class="status-tag ' + statusClass + '">' + proj.status + '</span></p>' +
+                        '</div>' +
+                        '<div style="background:rgba(255,255,255,0.05); padding:0.75rem; border-radius:0.5rem; font-size:0.9rem;">' + proj.projectNotes + '</div>' +
+                    '</div>';
                 }).join('');
             } catch (err) { container.innerHTML = 'Error: ' + err.message; }
         }
@@ -159,14 +141,14 @@
             const container = document.getElementById('messages-container');
             if (!container) return;
             try {
-                const response = await databases.listDocuments(DB_ID, CONTACT_COLLECTION_ID, [Query.orderDesc('$createdAt')]);
-                container.innerHTML = response.documents.map(msg => {
-                    return `<div class="message-card">
-                        <div style="margin-bottom:0.5rem; color:var(--text-sec); font-size:0.8rem;">${new Date(msg.$createdAt).toLocaleDateString()}</div>
-                        <strong style="display:block; margin-bottom:0.25rem;">${msg.name}</strong>
-                        <a href="mailto:${msg.email}" style="color:var(--accent); font-size:0.9rem; display:block; margin-bottom:0.75rem;">${msg.email}</a>
-                        <div style="background:rgba(255,255,255,0.05); padding:0.75rem; border-radius:0.5rem; font-size:0.9rem;">${msg.message}</div>
-                    </div>`;
+                const response = await databases.listDocuments(DB_ID, CONTACT_COLLECTION_ID, [Query.orderDesc('')]);
+                container.innerHTML = response.documents.length === 0 ? '<div class="empty-state">No messages yet.</div>' : response.documents.map(msg => {
+                    return '<div class="message-card">' +
+                        '<div style="margin-bottom:0.5rem; color:var(--text-sec); font-size:0.8rem;">' + new Date(msg.).toLocaleDateString() + '</div>' +
+                        '<strong style="display:block; margin-bottom:0.25rem;">' + msg.name + '</strong>' +
+                        '<a href="mailto:' + msg.email + '" style="color:var(--accent); font-size:0.9rem; display:block; margin-bottom:0.75rem;">' + msg.email + '</a>' +
+                        '<div style="background:rgba(255,255,255,0.05); padding:0.75rem; border-radius:0.5rem; font-size:0.9rem;">' + msg.message + '</div>' +
+                    '</div>';
                 }).join('');
             } catch (err) { container.innerHTML = 'Error: ' + err.message; }
         }
