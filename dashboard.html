@@ -176,10 +176,24 @@
             grid-column: 1 / -1;
         }
 
-        .small-input {
-            padding: 0.5rem !important;
-            font-size: 0.85rem !important;
-            border-radius: 0.5rem !important;
+        .header-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            margin-top: 10px;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--danger);
+        }
+
+        .status-dot.online {
+            background: var(--success);
+            box-shadow: 0 0 10px var(--success);
         }
     </style>
 </head>
@@ -195,7 +209,13 @@
     </div>
     <div id="dashboard">
         <div class="header">
-            <h1 style="font-family:'Outfit'">Mahmoud Reda Admin</h1>
+            <div>
+                <h1 style="font-family:'Outfit'">Mahmoud Reda Admin</h1>
+                <div class="header-status">
+                    <div id="connection-dot" class="status-dot"></div>
+                    <span id="connection-text">Connecting...</span>
+                </div>
+            </div>
             <div class="header-actions">
                 <button id="installBtn" style="display:none; background:var(--success);" class="btn"><i
                         class="fas fa-download"></i> Download App</button>
@@ -255,24 +275,44 @@
         }
 
         // Realtime Subscription
-        console.log("Subscribing to Appwrite Realtime...");
-        client.subscribe([
-            `databases.${DB_ID}.collections.${PROJECT_COLLECTION_ID}.documents`,
-            `databases.${DB_ID}.collections.${CONTACT_COLLECTION_ID}.documents`
-        ], response => {
-            console.log("Realtime event received:", response);
-            if (response.events.includes('databases.*.collections.*.documents.*.create')) {
-                const doc = response.payload;
-                console.log("New document created:", doc);
-                if (response.channels.includes(`databases.${DB_ID}.collections.${PROJECT_COLLECTION_ID}.documents`)) {
-                    showNotification('New Project Request', `From: ${doc.clientName || 'Unnamed'}`);
-                    loadProjects();
-                } else if (response.channels.includes(`databases.${DB_ID}.collections.${CONTACT_COLLECTION_ID}.documents`)) {
-                    showNotification('New Contact Message', `From: ${doc.name || 'Anonymous'}`);
-                    loadMessages();
-                }
+        let unsubscribe;
+        function initRealtime() {
+            console.log("Subscribing to Appwrite Realtime...");
+            const dot = document.getElementById('connection-dot');
+            const text = document.getElementById('connection-text');
+
+            if (unsubscribe) unsubscribe();
+
+            try {
+                unsubscribe = client.subscribe([
+                    `databases.${DB_ID}.collections.${PROJECT_COLLECTION_ID}.documents`,
+                    `databases.${DB_ID}.collections.${CONTACT_COLLECTION_ID}.documents`
+                ], response => {
+                    console.log("Realtime event received:", response);
+                    if (response.events.includes('databases.*.collections.*.documents.*.create')) {
+                        const doc = response.payload;
+                        if (response.channels.includes(`databases.${DB_ID}.collections.${PROJECT_COLLECTION_ID}.documents`)) {
+                            showNotification('New Project Request', `From: ${doc.clientName || 'Unnamed'}`);
+                            loadProjects();
+                        } else if (response.channels.includes(`databases.${DB_ID}.collections.${CONTACT_COLLECTION_ID}.documents`)) {
+                            showNotification('New Contact Message', `From: ${doc.name || 'Anonymous'}`);
+                            loadMessages();
+                        }
+                    }
+                });
+
+                if (dot) dot.classList.add('online');
+                if (text) text.innerText = 'Online / Live Updates';
+            } catch (err) {
+                if (dot) dot.classList.remove('online');
+                if (text) text.innerText = 'Offline / Retrying...';
+                setTimeout(initRealtime, 5000);
             }
-        });
+        }
+
+        // Reconnect when browser comes back online
+        window.addEventListener('online', initRealtime);
+        window.addEventListener('focus', initRealtime); // Recheck when app is opened
 
         function testNotification() {
             console.log("Testing notification...");
@@ -323,6 +363,7 @@
             document.getElementById('dashboard').style.display = 'block';
             loadProjects();
             loadMessages();
+            initRealtime();
         }
         function logout() {
             localStorage.removeItem('admin_auth');
