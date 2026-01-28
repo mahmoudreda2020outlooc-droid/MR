@@ -199,6 +199,8 @@
             <div class="header-actions">
                 <button id="installBtn" style="display:none; background:var(--success);" class="btn"><i
                         class="fas fa-download"></i> Download App</button>
+                <button onclick="testNotification()" style="background:var(--warning);" class="btn"><i
+                        class="fas fa-bell"></i> Test Notification</button>
                 <button onclick="logout()" style="background:var(--danger);" class="btn"><i
                         class="fas fa-sign-out-alt"></i> Logout</button>
             </div>
@@ -222,7 +224,69 @@
         const PROJECT_COLLECTION_ID = 'project_requests';
         const CONTACT_COLLECTION_ID = 'contact_messages';
 
+        // ========================================
+        // Notifications Setup
+        // ========================================
+        async function requestNotificationPermission() {
+            if (!("Notification" in window)) {
+                console.log("This browser does not support desktop notification");
+                return;
+            }
+            if (Notification.permission !== "granted") {
+                await Notification.requestPermission();
+            }
+        }
+
+        async function showNotification(title, body) {
+            if (Notification.permission === "granted") {
+                // Use service worker for better mobile support
+                if ('serviceWorker' in navigator) {
+                    const reg = await navigator.serviceWorker.ready;
+                    reg.showNotification(title, {
+                        body: body,
+                        icon: 'logo.png',
+                        vibrate: [200, 100, 200],
+                        badge: 'logo.png'
+                    });
+                } else {
+                    new Notification(title, { body: body, icon: 'logo.png' });
+                }
+            }
+        }
+
+        // Realtime Subscription
+        console.log("Subscribing to Appwrite Realtime...");
+        client.subscribe([
+            `databases.${DB_ID}.collections.${PROJECT_COLLECTION_ID}.documents`,
+            `databases.${DB_ID}.collections.${CONTACT_COLLECTION_ID}.documents`
+        ], response => {
+            console.log("Realtime event received:", response);
+            if (response.events.includes('databases.*.collections.*.documents.*.create')) {
+                const doc = response.payload;
+                console.log("New document created:", doc);
+                if (response.channels.includes(`databases.${DB_ID}.collections.${PROJECT_COLLECTION_ID}.documents`)) {
+                    showNotification('New Project Request', `From: ${doc.clientName || 'Unnamed'}`);
+                    loadProjects();
+                } else if (response.channels.includes(`databases.${DB_ID}.collections.${CONTACT_COLLECTION_ID}.documents`)) {
+                    showNotification('New Contact Message', `From: ${doc.name || 'Anonymous'}`);
+                    loadMessages();
+                }
+            }
+        });
+
+        function testNotification() {
+            console.log("Testing notification...");
+            if (Notification.permission === "default") {
+                requestNotificationPermission().then(() => {
+                    showNotification('Test Notification', 'If you see this, notifications are working!');
+                });
+            } else {
+                showNotification('Test Notification', 'If you see this, notifications are working!');
+            }
+        }
+
         let deferredPrompt;
+
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
@@ -248,6 +312,7 @@
             const val = document.getElementById('admin-password').value;
             if (val === '0000') {
                 localStorage.setItem('admin_auth', 'true');
+                requestNotificationPermission();
                 showDashboard();
             } else {
                 document.getElementById('error-msg').style.display = 'block';
