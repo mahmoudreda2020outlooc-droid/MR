@@ -242,8 +242,6 @@
             <div class="header-actions">
                 <button id="installBtn" style="display:none; background:var(--success);" class="btn"><i
                         class="fas fa-download"></i> Download App</button>
-                <button onclick="testNotification()" style="background:var(--warning);" class="btn"><i
-                        class="fas fa-bell"></i> Test Notification</button>
                 <button onclick="logout()" style="background:var(--danger);" class="btn"><i
                         class="fas fa-sign-out-alt"></i> Logout</button>
             </div>
@@ -274,7 +272,6 @@
         // ========================================
         async function requestNotificationPermission() {
             if (!("Notification" in window)) {
-                console.log("This browser does not support desktop notification");
                 return;
             }
             if (Notification.permission !== "granted") {
@@ -292,7 +289,6 @@
                     const registration = await navigator.serviceWorker.ready;
                     // register for push
                     await messaging.registerSubscriber(registration);
-                    console.log("Registered for Web Push!");
                 }
             } catch (err) {
                 console.error("Push Registration Error:", err);
@@ -300,7 +296,6 @@
         }
 
         async function showNotification(title, body) {
-            console.log("Attempting to show notification:", title, body);
 
             // 1. In-app Toast and Sound (Works while screen is on)
             showToast(`${title}: ${body}`);
@@ -327,10 +322,8 @@
                         new Notification(title, { body: body, icon: 'logo.png' });
                     }
                 } catch (e) {
-                    console.error("System Notification Error:", e);
                 }
             } else {
-                console.warn("Notification permission not granted. Status:", Notification.permission);
             }
         }
 
@@ -350,13 +343,12 @@
             try {
                 const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
                 audio.play();
-            } catch (e) { console.error("Sound play failed", e); }
+            } catch (e) { }
         }
 
         // Realtime Subscription
         let unsubscribe;
         function initRealtime() {
-            console.log("Subscribing to Appwrite Realtime...");
             const dot = document.getElementById('connection-dot');
             const text = document.getElementById('connection-text');
 
@@ -367,7 +359,6 @@
                     `databases.${DB_ID}.collections.${PROJECT_COLLECTION_ID}.documents`,
                     `databases.${DB_ID}.collections.${CONTACT_COLLECTION_ID}.documents`
                 ], response => {
-                    console.log("Realtime event received:", response);
                     if (response.events.includes('databases.*.collections.*.documents.*.create')) {
                         const doc = response.payload;
                         if (response.channels.includes(`databases.${DB_ID}.collections.${PROJECT_COLLECTION_ID}.documents`)) {
@@ -393,16 +384,6 @@
         window.addEventListener('online', initRealtime);
         window.addEventListener('focus', initRealtime); // Recheck when app is opened
 
-        function testNotification() {
-            console.log("Testing notification...");
-            if (Notification.permission === "default") {
-                requestNotificationPermission().then(() => {
-                    showNotification('Test Notification', 'If you see this, notifications are working!');
-                });
-            } else {
-                showNotification('Test Notification', 'If you see this, notifications are working!');
-            }
-        }
 
         let deferredPrompt;
 
