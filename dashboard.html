@@ -260,12 +260,14 @@
         </div>
     </div>
     <script>
-        const { Client, Databases, Query } = Appwrite;
+        const { Client, Databases, Query, Messaging } = Appwrite;
         const client = new Client().setEndpoint('https://cloud.appwrite.io/v1').setProject('697121c70024e4e94ac3');
         const databases = new Databases(client);
+        const messaging = new Messaging(client);
         const DB_ID = '6971223f003e5f162359';
         const PROJECT_COLLECTION_ID = 'project_requests';
         const CONTACT_COLLECTION_ID = 'contact_messages';
+
 
         // ========================================
         // Notifications Setup
@@ -277,6 +279,23 @@
             }
             if (Notification.permission !== "granted") {
                 await Notification.requestPermission();
+            }
+            if (Notification.permission === "granted") {
+                registerForPush();
+            }
+        }
+
+        async function registerForPush() {
+            try {
+                // Ensure we have a service worker
+                if ('serviceWorker' in navigator) {
+                    const registration = await navigator.serviceWorker.ready;
+                    // register for push
+                    await messaging.registerSubscriber(registration);
+                    console.log("Registered for Web Push!");
+                }
+            } catch (err) {
+                console.error("Push Registration Error:", err);
             }
         }
 
@@ -413,6 +432,7 @@
             if (val === '0000') {
                 localStorage.setItem('admin_auth', 'true');
                 requestNotificationPermission();
+                registerForPush();
                 showDashboard();
             } else {
                 document.getElementById('error-msg').style.display = 'block';

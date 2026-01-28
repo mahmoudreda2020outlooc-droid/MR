@@ -24,3 +24,17 @@ self.addEventListener('notificationclick', (event) => {
         clients.openWindow('/dashboard.html')
     );
 });
+
+self.addEventListener('push', (event) => {
+    const data = event.data ? event.data.json() : { title: 'New Alert', body: 'New data received.' };
+
+    event.waitUntil(
+        self.registration.showNotification(data.title, {
+            body: data.body,
+            icon: '/logo.png',
+            badge: '/logo.png',
+            vibrate: [300, 100, 300]
+        })
+    );
+});
+
