@@ -150,59 +150,8 @@ document.addEventListener('DOMContentLoaded', initTilt);
 // ========================================
 // Contact Form Submission
 // ========================================
-const contactForm = document.querySelector('.contact-form');
+// Contact form handling is moved to initContactForm() at the bottom of the file
 
-if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        // Get form data
-        const formData = new FormData(contactForm);
-        const name = formData.get('name');
-        const email = formData.get('email');
-        const message = formData.get('message');
-
-        // Simple validation
-        if (name && email && message) {
-            const submitBtn = contactForm.querySelector('button[type="submit"]');
-            const originalBtnText = submitBtn.innerHTML;
-
-            submitBtn.innerHTML = '<span>Sending...</span><i class="fas fa-spinner fa-spin"></i>';
-            submitBtn.disabled = true;
-
-            fetch(contactForm.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            })
-                .then(response => {
-                    if (response.ok) {
-                        // Redirect to Thank You page
-                        window.location.href = 'thank-you.html';
-                    } else {
-                        response.json().then(data => {
-                            if (Object.hasOwn(data, 'errors')) {
-                                alert(data["errors"].map(error => error["message"]).join(", "));
-                            } else {
-                                alert('Oops! There was a problem submitting your form');
-                            }
-                            submitBtn.innerHTML = originalBtnText;
-                            submitBtn.disabled = false;
-                        });
-                    }
-                })
-                .catch(error => {
-                    alert('Oops! There was a problem submitting your form');
-                    submitBtn.innerHTML = originalBtnText;
-                    submitBtn.disabled = false;
-                });
-        } else {
-            alert('Please fill in all fields.');
-        }
-    });
-}
 
 // ========================================
 // Parallax Effect for Hero Section
@@ -908,7 +857,7 @@ function initProjectPortal() {
             }).catch(err => {
                 console.error('Appwrite Project Request Error:', err);
                 if (err.code === 403) {
-                    alert('ط¨ظˆط§ط¨ط© Appwrite طھط±ظپط¶ ط§ظ„ط§طھطµط§ظ„ (CORS). ظٹط±ط¬ظ‰ ط§ظ„طھط£ظƒط¯ ظ…ظ† ط¥ط¶ط§ظپط© localhost ظˆ 127.0.0.1 ظپظٹ ظ…ظ†طµط§طھ (Platforms) ط§ظ„ظ…ط´ط±ظˆط¹.');
+                    alert('Appwrite connection failed (CORS/Permissions). Please ensure your domain is added to authorized platforms in Appwrite Console.');
                 } else {
                     alert('Error submitting request: ' + (err.message || 'Please check console.'));
                 }
@@ -1016,7 +965,7 @@ function initContactForm() {
         }).catch(err => {
             console.error('Appwrite Contact Error:', err);
             if (err.code === 403) {
-                alert('ط¨ظˆط§ط¨ط© Appwrite طھط±ظپط¶ ط§ظ„ط§طھطµط§ظ„ (CORS). ظٹط±ط¬ظ‰ ط§ظ„طھط£ظƒط¯ ظ…ظ† ط¥ط¶ط§ظپط© localhost ظˆ 127.0.0.1 ظپظٹ ظ…ظ†طµط§طھ (Platforms) ط§ظ„ظ…ط´ط±ظˆط¹ ظƒظ…ط§ ط´ط±ط­طھ ظ„ظƒ.');
+                alert('Appwrite connection failed (CORS/Permissions). Please ensure your domain is added to authorized platforms and collection permissions are set correctly.');
             } else {
                 alert('Error sending message: ' + (err.message || 'Please check console.'));
             }
