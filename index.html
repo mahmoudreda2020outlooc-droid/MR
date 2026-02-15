@@ -9,10 +9,8 @@
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.getRegistrations().then(regs => {
                     for (let r of regs) r.unregister();
-                }).then(() => {
-                    caches.keys().then(names => {
-                        for (let n of names) caches.delete(n);
-                    }
+                }).then(() => { location.reload(true); });
+            }
         }
     </script>
     <meta charset="UTF-8">
@@ -57,13 +55,13 @@
     <link rel="icon" href="favicon.png" type="image/png">
     <script>
         // Unregister any service workers to separate from other projects
-                                                                                if ('serviceWorker' in navigator) {
-                    navigator.serviceWorker.getRegistrations().then(registrations => {
-                        for (let registration of registrations) {
-                            registration.unregister();
-                        }
-                    });
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(registrations => {
+                for (let registration of registrations) {
+                    registration.unregister();
                 }
+            });
+        }
     </script>
 </head>
 
