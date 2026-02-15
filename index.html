@@ -12,45 +12,44 @@
                 }).then(() => {
                     caches.keys().then(names => {
                         for (let n of names) caches.delete(n);
-                    }).then(() => { location.reload(true); });
-                });
-            }
+                    }
         }
-        <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <meta name="description"
-                    content="Mahmoud - Web Developer Portfolio. Building modern, fast, and user-friendly websites with cutting-edge technologies. مطور ويب محترف - بناء مواقع حديثة وسريعة.">
-                    <meta name="keywords"
-                        content="web developer, portfolio, HTML, CSS, JavaScript, React, Firebase, Git, مطور ويب, تصميم مواقع, مبرمج">
-                        <meta name="author" content="Mahmoud">
-                            <meta name="robots" content="index, follow">
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Mahmoud - Web Developer Portfolio. Building modern, fast, and user-friendly websites with cutting-edge technologies. مطور ويب محترف - بناء مواقع حديثة وسريعة.">
+    <meta name="keywords"
+        content="web developer, portfolio, HTML, CSS, JavaScript, React, Firebase, Git, مطور ويب, تصميم مواقع, مبرمج">
+    <meta name="author" content="Mahmoud">
+    <meta name="robots" content="index, follow">
 
     <!-- Open Graph Meta Tags -->
-                                <meta property="og:title" content="Mahmoud - Web Developer Portfolio | مطور ويب">
-                                    <meta property="og:description"
-                                        content="Building modern, fast, and user-friendly websites. بناء مواقع عصرية وسريعة.">
-                                        <meta property="og:image" content="https://mr-roan.vercel.app/og-image.png">
-                                            <meta property="og:url" content="https://mr-roan.vercel.app/">
-                                                <meta property="og:type" content="website">
+    <meta property="og:title" content="Mahmoud - Web Developer Portfolio | مطور ويب">
+    <meta property="og:description"
+        content="Building modern, fast, and user-friendly websites. بناء مواقع عصرية وسريعة.">
+    <meta property="og:image" content="https://mr-roan.vercel.app/og-image.png">
+    <meta property="og:url" content="https://mr-roan.vercel.app/">
+    <meta property="og:type" content="website">
 
-                                                    <!-- Twitter Card Meta Tags -->
-                                                    <meta name="twitter:card" content="summary_large_image">
-                                                        <meta name="twitter:title" content="Mahmoud - Web Developer Portfolio">
-                                                            <meta name="twitter:description" content="Building modern, fast, and user-friendly websites">
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mahmoud - Web Developer Portfolio">
+    <meta name="twitter:description" content="Building modern, fast, and user-friendly websites">
 
-                                                                <title>Mahmoud - Web Developer Portfolio | مطور ويب</title>
+    <title>Mahmoud - Web Developer Portfolio | مطور ويب</title>
 
-                                                                <!-- Google Fonts -->
-                                                                <link rel="preconnect" href="https://fonts.googleapis.com">
-                                                                    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-                                                                        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-                                                                            rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
-                                                                            <!-- Font Awesome -->
-                                                                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-                                                                                <!-- Appwrite SDK -->
-                                                                                <script src="https://cdn.jsdelivr.net/npm/appwrite@14.0.0"></script>
+    <!-- Appwrite SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@14.0.0"></script>
 
     <link rel="stylesheet" href="style.css?v=2">
 
@@ -59,12 +58,12 @@
     <script>
         // Unregister any service workers to separate from other projects
                                                                                 if ('serviceWorker' in navigator) {
-                                                                                    navigator.serviceWorker.getRegistrations().then(registrations => {
-                                                                                        for (let registration of registrations) {
-                                                                                            registration.unregister();
-                                                                                        }
-                                                                                    });
-        }
+                    navigator.serviceWorker.getRegistrations().then(registrations => {
+                        for (let registration of registrations) {
+                            registration.unregister();
+                        }
+                    });
+                }
     </script>
 </head>
 
