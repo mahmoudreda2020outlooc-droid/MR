@@ -225,13 +225,9 @@
     <div id="login-screen">
         <div class="login-card">
             <h2 style="margin-bottom:1.5rem; font-family:'Outfit'">Admin Access</h2>
-            <div class="form-group" style="margin-bottom: 1rem; text-align: left;">
-                <label for="admin-email" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem;">Email</label>
-                <input type="email" id="admin-email" placeholder="admin@example.com">
-            </div>
             <div class="form-group" style="margin-bottom: 1.5rem; text-align: left;">
-                <label for="admin-password"
-                    style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem;">Password</label>
+                <label for="admin-password" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem;">Admin
+                    Code</label>
                 <input type="password" id="admin-password" placeholder="••••••••">
             </div>
             <button class="btn" id="login-btn" onclick="checkAuth()">
@@ -421,15 +417,17 @@
         }
 
         async function checkAuth() {
-            const email = document.getElementById('admin-email').value;
+            // Internal administrative email (Hidden from UI)
+            const ADMIN_EMAIL = 'admin-access@portfolio.internal';
+
             const password = document.getElementById('admin-password').value;
             const errorMsg = document.getElementById('error-msg');
             const loginBtn = document.getElementById('login-btn');
             const loginText = document.getElementById('login-text');
             const loginSpinner = document.getElementById('login-spinner');
 
-            if (!email || !password) {
-                errorMsg.innerText = 'Please enter both email and password.';
+            if (!password) {
+                errorMsg.innerText = 'Please enter the access code.';
                 errorMsg.style.display = 'block';
                 return;
             }
@@ -440,7 +438,7 @@
                 loginSpinner.style.display = 'inline-block';
                 errorMsg.style.display = 'none';
 
-                await account.createEmailPasswordSession(email, password);
+                await account.createEmailPasswordSession(ADMIN_EMAIL, password);
 
                 // Successful login
                 requestNotificationPermission();
