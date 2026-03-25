@@ -3,3 +3,4 @@ admin.html
 *.log
 tmp/
 node_modules/
+.vercel

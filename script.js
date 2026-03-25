@@ -358,7 +358,19 @@ const translations = {
         request_success_message: "Your project has been received. Save this code to track your progress:",
         request_success_note: "We will contact you via phone or email shortly.",
         tracking_error: "Incorrect code. Please try again.",
-        loading: "Loading Experience..."
+        loading: "Loading Experience...",
+        zaitouna_title: "Zaitouna Platform",
+        zaitouna_description: "A state-of-the-art AI-powered educational ecosystem designed to revolutionize student-curriculum interaction through localized multimodal intelligence.",
+        zaitouna_f1: "AI Summarization (The Essence): Intelligent distillation of complex topics into key insights.",
+        zaitouna_f2: "Al-Dahih Assistant: Multimodal AI that understands images and explains concepts interactively.",
+        zaitouna_f3: "Innovative Persona: Tailored Egyptian AI personality for a relatable and engaging learning experience.",
+        zaitouna_f4: "Curriculum Aware: Specialized understanding of academic syllabi and technical tracks.",
+        zaitouna_f5: "Modern UI: Sleek Glassmorphism design with a focus on usability and premium aesthetics.",
+        zaitouna_f6: "Unified Hub: Centralized access to PDFs, worksheets, and interactive resources.",
+        zaitouna_f7: "Data Engine: Robust backend infrastructure for high-performance content delivery.",
+        zaitouna_f8: "Fluid Motion: Premium Framer Motion animations for a seamless user journey.",
+        zaitouna_f9: "Modern Stack: Built with Next.js 16 and React 19 for leading-edge performance.",
+        zaitouna_f10: "Bilingual Core: Global infrastructure supporting Arabic and English seamlessly."
     },
     ar: {
         nav_home: "الرئيسية",
@@ -442,7 +454,19 @@ const translations = {
         request_success_message: "تم استلام مشروعك بنجاح. احفظ هذا الكود لتتبع التقدم:",
         request_success_note: "سنتواصل معك عبر الهاتف أو البريد الإلكتروني قريباً.",
         tracking_error: "الكود غير صحيح. يرجى المحاولة مرة أخرى.",
-        loading: "جاري تحميل التجربة..."
+        loading: "جاري تحميل التجربة...",
+        zaitouna_title: "منصة الزتونة التعليمية",
+        zaitouna_description: "نظام تعليمي متكامل مدعوم بالذكاء الاصطناعي، مصمم لتطوير تجربة الطالب التعليمية من خلال ذكاء اصطناعي محلي متعدد الوسائط.",
+        zaitouna_f1: "تلخيص الذكاء الاصطناعي (الزتونة): استخلاص ذكي للأفكار الأساسية من المواضيع المعقدة.",
+        zaitouna_f2: "مساعد الدحيح: مساعد ذكاء اصطناعي يفهم الصور ويشرح المفاهيم بشكل تفاعلي.",
+        zaitouna_f3: "شخصية ابتكارية: شخصية مصرية مخصصة للذكاء الاصطناعي لجعله أكثر قرباً وتفاعلاً مع الطالب.",
+        zaitouna_f4: "وعي بالمناهج: فهم عميق للمناهج الدراسية والمسارات التقنية المختلفة.",
+        zaitouna_f5: "تصميم عصري: تصميم زجاجي (Glassmorphism) يركز على سهولة الاستخدام والجماليات البريميوم.",
+        zaitouna_f6: "مركز موحد: وصول مركزي للمفات الـ PDF، أوراق العمل والمصادر التفاعلية.",
+        zaitouna_f7: "محرك البيانات: بنية تحتية قوية لإرسال المحتوى التعليمي بأعلى أداء.",
+        zaitouna_f8: "حركات انسيابية: استخدام Framer Motion لتوفير تجربة مستخدم سلسة وعصرية.",
+        zaitouna_f9: "أحدث التقنيات: مطور باستخدام Next.js 16 و React 19 لأداء فائق ومستقر.",
+        zaitouna_f10: "بنية ثنائية اللغة: دعم كامل ومتكامل للغتين العربية والإنجليزية."
     },
     fr: {
         nav_home: "Accueil",
@@ -521,7 +545,19 @@ const translations = {
         request_success_message: "Votre projet a été reçu. Enregistrez ce code pour suivre votre progression :",
         request_success_note: "Nous vous contacterons par téléphone ou e-mail sous peu.",
         tracking_error: "Code incorrect. Veuillez réessayer.",
-        loading: "Chargement de l'expérience..."
+        loading: "Chargement de l'expérience...",
+        zaitouna_title: "Plateforme Zaitouna",
+        zaitouna_description: "Un écosystème éducatif alimenté par l'IA de pointe, conçu pour révolutionner l'interaction étudiant-curriculum grâce à une intelligence multimodale localisée.",
+        zaitouna_f1: "Résumé par IA : Distillation intelligente des sujets complexes en points clés.",
+        zaitouna_f2: "Assistant Al-Dahih : IA multimodale qui comprend les images et explique les concepts de manière interactive.",
+        zaitouna_f3: "Personnalité Innovante : Personnalité égyptienne de l'IA sur mesure pour une expérience d'apprentissage engageante.",
+        zaitouna_f4: "Conscience du Curriculum : Compréhension spécialisée des programmes académiques et des parcours techniques.",
+        zaitouna_f5: "Interface Moderne : Design Glassmorphism élégant axé sur la convivialité et l'esthétique premium.",
+        zaitouna_f6: "Pôle Unifié : Accès centralisé aux PDF, feuilles de travail et ressources interactives.",
+        zaitouna_f7: "Moteur de Données : Infrastructure backend robuste pour une diffusion de contenu haute performance.",
+        zaitouna_f8: "Mouvement Fluide : Animations Framer Motion premium pour un parcours utilisateur sans faille.",
+        zaitouna_f9: "Stack Moderne : Construit avec Next.js 16 et React 19 pour des performances de pointe.",
+        zaitouna_f10: "Cœur Bilingue : Infrastructure mondiale supportant l'arabe et l'anglais de manière transparente."
     }
 };
 
